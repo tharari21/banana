@@ -5,7 +5,6 @@ const router = express.Router({ mergeParams: true });
 
 router.get("/images", async (req, res) => {
   // return product req.params.id's images
-  console.log(req.params.productId)
   const imagesQuery = await pool.query('SELECT * FROM images WHERE product_id=$1', [req.params.productId])
   res.json({images: imagesQuery.rows})
 
