@@ -9,6 +9,5 @@ function App() {
       <ProductContainer/>
     </div>
   );
-}
 
 export default App;
