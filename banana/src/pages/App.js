@@ -1,6 +1,8 @@
+import SignUpComponent from "../components/SignUpComponent";
 function App() {
   return (
     <div className="App">
+        <SignUpComponent/>
     </div>
   );
 }
