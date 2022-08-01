@@ -1,21 +1,33 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 const Sidebar = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const toggleSidebar = () => {
         setIsSidebarOpen(prev => !prev)
     }
+    useEffect(() => {
+      console.log(window.innerWidth)
+      const handleResize = () => {
+        if (window.innerWidth < 1330) {
+          setIsSidebarOpen(false);
+        } else {
+          setIsSidebarOpen(true);
+        }
+        
+      }
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize)
+      }
+    }, [])
 
     
     
-    const opensidebarStyle = { position: 'fixed', left: '0', top: '0', width: '20%',height: '100%', backgroundColor: 'black' }
+    const opensidebarStyle = { position: 'fixed', left: '0', top: '0', width: '15%', minWidth: '150px' ,height: '100%', backgroundColor: 'black', transition: '0.3s' }
     const closedSidebarStyle = {
-      position: "fixed",
-      left: "0",
-      top: "0",
+      ...opensidebarStyle,
       width: "5%",
-      height: "100%",
-      backgroundColor: "black",
+      minWidth: '70px',
     };
     const openedListStyle = {display: 'flex', flexDirection: 'column',  gap: '50px', margin: '8em 0 0 2em', padding: '0'}
     const closedListStyle = {
@@ -37,17 +49,21 @@ const Sidebar = () => {
         fontSize: '3em',
         padding: '.1em .1em'
     };
-    const profileLink = {position: 'absolute', bottom: '0'}
+    const sidebarNavItemText = { paddingLeft: ".6em" };
+    const profileLink = {position: 'absolute', bottom: '25px'}
     const openedSidebarList = (
       <ul style={openedListStyle}>
         <a style={listItem} href="/">
-          <ion-icon name="home-outline"></ion-icon> Home
+          <ion-icon name="home-outline"></ion-icon>{" "}
+          <span style={sidebarNavItemText}>Home</span>
         </a>
         <a style={listItem} href="/">
-          <ion-icon name="search-outline"></ion-icon> Search
+          <ion-icon name="search-outline"></ion-icon>{" "}
+          <span style={sidebarNavItemText}>Search</span>
         </a>
         <a style={{ ...listItem, ...profileLink }} href="/">
-          <ion-icon name="person-circle-outline"></ion-icon> Profile
+          <ion-icon name="person-circle-outline"></ion-icon>{" "}
+          <span style={sidebarNavItemText}>Profile</span>
         </a>
       </ul>
     );
