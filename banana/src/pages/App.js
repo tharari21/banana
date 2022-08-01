@@ -5,7 +5,7 @@ import SelectedProductContainer from "../components/SelectedProductContainer";
 function App() {
   return (
     <div className="App">
-    <SelectedProductContainer/>
+      <ProductCard/>
     </div>
   );
 }
