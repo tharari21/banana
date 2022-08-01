@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     try {
         const productsQuery = await pool.query('SELECT * FROM products');
         if (productsQuery.rowCount > 0) {
-          res.json({ products: productsQuery.rows });
+          res.json( productsQuery.rows );
         } else {
           res.send("No Products");
         }
@@ -117,7 +117,7 @@ router.delete('/:productId', async (req, res) => {
 })
 
 
-router.use("/:productId/image", imageRouter);
+router.use("/:productId/images", imageRouter);
 
 
 
