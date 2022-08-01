@@ -117,7 +117,7 @@ router.delete('/:productId', async (req, res) => {
 })
 
 
-router.use("/:productId", imageRouter);
+router.use("/:productId/image", imageRouter);
 
 
 
