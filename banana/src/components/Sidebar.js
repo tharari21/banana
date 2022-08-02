@@ -1,7 +1,10 @@
 import {useState, useEffect} from 'react'
+import LogInForm from './LogInForm';
 
 const Sidebar = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [isLogIn, setIsLogIn]= useState(true)
+    // const [isSingUp, setIsSignUp]= useState(true)
     const toggleSidebar = () => {
         setIsSidebarOpen(prev => !prev)
     }
@@ -94,7 +97,10 @@ const Sidebar = () => {
             )}
             </button>
           {isSidebarOpen ? openedSidebarList : closedSidebarList}
-            <button>Sign In</button>
+            <button onClick={()=> {setIsLogIn(prev=> !prev)}}>LOG IN</button>
+            {/* <button onClick={()=> {setIsSignUp(prev=> !prev)}}>SIGN UP</button> */}
+                {isLogIn && <LogInForm setIsLogIn={setIsLogIn}/>}
+                {/* {isSignUp && <LogInForm/>} */}
         </div>
       </>
     );
