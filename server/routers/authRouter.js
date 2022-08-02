@@ -4,10 +4,21 @@ const router = express.Router();
 const pool = require('../db')
 
 
+router.post('/fetch-user', (req, res) => {
+  console.log('sessionId', req.sessionID)
+  console.log('session',req.session)
+  if (req.session.user) {
+    res.json(req.session.user)
+  }
+  else {
+    res.json({})
+  }
+})
 
 router.post('/login', async(req,res) => {
-    console.log(req.session)
     const {email, password} = req.body;
+    console.log(email)
+    console.log(password)
     const potentialLogin = await pool.query('SELECT id, email, hashedpassword FROM users WHERE email = $1', [email])
     if (potentialLogin.rowCount === 1){
         // const isSamePass = await bcrypt.compare(
@@ -21,7 +32,7 @@ router.post('/login', async(req,res) => {
                 id: potentialLogin.rows[0].id
             }
             
-            res.json({messsage: 'logged in'})
+            res.json(req.session.user)
         }else {
             res.json({message: 'not logged in'})
         }

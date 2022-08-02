@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const session = require('express-session');
+const cookieParser = require('cookie-parser')
 const pgSession = require("connect-pg-simple")(session);
 const authRouter = require('./routers/authRouter')
 const productsRouter = require('./routers/productsRouter')
@@ -10,8 +11,13 @@ const pool = require("./db");
 const app = express();
 app.set('trust proxy', 1) // trust first proxy
 
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000'],
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
 app.use(express.json());
+app.use(cookieParser());
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(
   session({
