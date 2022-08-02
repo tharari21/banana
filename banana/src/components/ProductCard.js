@@ -10,6 +10,10 @@ const ProductCard = ({product}) => {
         }
         getImages()
     }, [])
+
+    const stars = (
+      <span>{'★'.repeat(product.rating)}</span>
+    )
   // return (
   //   <div style={{ margin: '0 2em'}}>
   //       <h1>{product.name}</h1>
@@ -41,7 +45,7 @@ const ProductCard = ({product}) => {
       <div style={{ padding: "1em 0em 0.5em 0.5em" }}>
         {" "}
         <span style={{ display: "flex", gap: "3em" }}>
-          <p>{product.name}</p>
+          <h2>{product.name}</h2>
           <div
             style={{
               display: "flex",
@@ -50,11 +54,12 @@ const ProductCard = ({product}) => {
               gap: "5px",
             }}
           >
-            <ion-icon name="star"></ion-icon>
-            <p>{"product rating"}</p>
+            {/* <ion-icon name="star"></ion-icon> */}
+
+            <p>{stars}</p>
           </div>
         </span>
-        <h3>{"product Price"}</h3>
+        <h2>$ {product.price}</h2>
       </div>
     </div>
   );

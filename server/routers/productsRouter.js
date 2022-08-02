@@ -2,28 +2,46 @@ const express = require('express')
 const pool = require('../db');
 const router = express.Router();
 const imageRouter = require('./imageRouter');
+const jwt = require('jsonwebtoken')
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (!token) {
+    res.json({message: 'No token provided'})
+    return res.sendStatus(401);
+  }
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) {
+      res.json({message: 'Token no longer valid'})// A token was given but is no longer valid
+    } else {
+      req.user = user;
+      next();
+    }
+  });
+};
 
-router.get('/', async (req, res) => {
+
+router.get('/',  async (req, res) => {
     // return all products
+
     try {
         const productsQuery = await pool.query('SELECT * FROM products');
         if (productsQuery.rowCount > 0) {
           res.json( productsQuery.rows );
         } else {
-          res.send("No Products");
+          res.json({message: "No Products"});
         }
     } catch (err) {
-        console.error(err)
-        res.send(JSON.stringify(err))
+        res.json({message: 'ERROR', error: err})
     }
 })
 router.post('/', async (req, res) => {
     // Create new product
-    const {name, description, sellerId, categoryId} = req.body;
+    const {name, description, sellerId, categoryId, rating, price} = req.body;
     try {
         const newProductQuery = await pool.query(
-          "INSERT INTO products (name, description, seller_id, catagory_id) VALUES($1, $2, (SELECT id FROM users WHERE id=$3), (SELECT id FROM catagories WHERE id=$4)) RETURNING id, name, description, seller_id, catagory_id",
-          [name, description, sellerId, categoryId]
+          "INSERT INTO products (name, description, seller_id, catagory_id, rating, price) VALUES($1, $2, (SELECT id FROM users WHERE id=$3), (SELECT id FROM catagories WHERE id=$4), $5,$6) RETURNING id, name, description, seller_id, catagory_id, rating, price",
+          [name, description, sellerId, categoryId, rating, price]
         );
         if (newProductQuery.rowCount ===1){
             res.json({ product: newProductQuery.rows[0] })
@@ -37,7 +55,7 @@ router.post('/', async (req, res) => {
     })
     router.patch('/:productId',async  (req, res) => {
       // update req.params.id
-      const { name, description, sellerId, categoryId } = req.body;
+      const { name, description, sellerId, categoryId, rating, price } = req.body;
       const responseObj = {};
     
       if (name) {
@@ -91,6 +109,40 @@ router.post('/', async (req, res) => {
           }
         } catch (err) {
           responseObj.isCategoryUpdated = false;
+        }
+      }
+      if (rating) {
+        try {
+          const updatedProductQuery = await pool.query(
+            "UPDATE products SET rating=$1 WHERE id=$2",
+            [rating, req.params.productId]
+          );
+          if (updatedProductQuery.rowCount === 1) {
+            responseObj.rating = rating;
+            responseObj.isRatingUpdated = true;
+        } else {
+            responseObj.isRatingUpdated = false;
+            
+          }
+        } catch (err) {
+          responseObj.isRatingUpdated = false;
+        }
+      }
+      if (price) {
+        try {
+          const updatedProductQuery = await pool.query(
+            "UPDATE products SET price=$1 WHERE id=$2",
+            [price, req.params.productId]
+          );
+          if (updatedProductQuery.rowCount === 1) {
+            responseObj.price = price;
+            responseObj.isPriceUpdated = true;
+        } else {
+            responseObj.isPriceUpdated = false;
+            
+          }
+        } catch (err) {
+          responseObj.isPriceUpdated = false;
         }
       }
       res.json(responseObj);

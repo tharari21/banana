@@ -8,22 +8,22 @@ export const UserContext = createContext();
 function App() {
   const [user, setUser] = useState({})
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
-  useEffect(() => {
+  // useEffect(() => {
 
-    const getUser = async () => {
-      const req = await fetch("http://localhost:5000/auth/fetch-user", {
-        method: 'POST',
-        withCredentials: true,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      });
-      const res = await req.json()
-      console.log('fetch user response', res)
-      setUser(res)
-    }
-    getUser()
-  }, [])
+  //   const getUser = async () => {
+  //     const req = await fetch("http://localhost:5000/auth/fetch-user", {
+  //       method: 'POST',
+  //       withCredentials: true,
+  //       headers: {
+  //         "Access-Control-Allow-Origin": "*",
+  //       },
+  //     });
+  //     const res = await req.json()
+  //     console.log('fetch user response', res)
+  //     setUser(res)
+  //   }
+  //   getUser()
+  // }, [])
   console.log('user', user)
   return (
     <div className="App">
