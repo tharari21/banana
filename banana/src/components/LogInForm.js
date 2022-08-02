@@ -57,7 +57,7 @@ const LogInComponent = ({setIsLogIn}) => {
                   borderRadius: "5px",
                   border: "1px solid rgba(0, 0, 0, 0.263)",
                 }}
-                onClick={handleInput}
+                onChange={handleInput}
               />
               <input
                 type="password"
@@ -69,7 +69,7 @@ const LogInComponent = ({setIsLogIn}) => {
                   borderRadius: "5px",
                   border: "1px solid rgba(0, 0, 0, 0.263)",
                 }}
-                onClick={handleInput}
+                onChange={handleInput}
               />
               <button
                 style={{
