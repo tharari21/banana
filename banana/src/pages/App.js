@@ -3,6 +3,7 @@ import { createContext, useState, useEffect, useMemo } from "react";
 import Sidebar from '../components/Sidebar'
 import ProductContainer from '../components/ProductContainer'
 import Home from '../pages/Home'
+import Cart from "./Cart";
 import { BrowserRouter as Router, Route, NavLink, Switch, Link } from "react-router-dom";
 import SelectedProductPage from "../components/SelectedProductPage";
 export const UserContext = createContext();
@@ -36,14 +37,18 @@ function App() {
           <Sidebar />
         </UserContext.Provider>
         <Switch>
-          <Route exact path={`/products/1`}>
+         
+          <Route exact key={1} path={`/products/1`}>
             <SelectedProductPage />
           </Route>
-          <Route path="/">
-            
+          <Route  key={2}exact path="/">
             <Home />
             <ProductContainer setSelectedProduct={setSelectedProduct} />
           </Route>
+           <Route key={3} exact path='/cart'>
+            <Cart/>
+          </Route>
+          
         </Switch>
       </div>
     </Router>
