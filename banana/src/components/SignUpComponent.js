@@ -1,16 +1,59 @@
 const SignUpComponent = () => {
   return (
-    <div>
+    <div
+      style={{
+        border: "1px solid rgba(0, 0, 0, 0.263)",
+        height: "500px",
+        width: "450px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        postion: "relative",
+        borderRadius: "10px",
+      }}
+    >
       <header>
-        <button>X</button>
-        <h4>SIGN UP</h4>
-        <h3>Welcome to Banana</h3>
-        <form action="">
-          <input type="email" />
-          <input type="password" />
-          <button>LOGIN</button>
+        <div style={{textAlign: 'center'}}>
+          <h4 style={{fontSize:'2rem'}}>SIGN UP</h4>
+          <h3>Welcome to Banana</h3>
+        </div>
+        <form
+          action=""
+          style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+        >
+          <input
+            type="email"
+            placeholder="Email"
+            style={{
+              height: "30px",
+              width: "250px",
+              borderRadius: "5px",
+              border: "1px solid rgba(0, 0, 0, 0.263)",
+            }}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            style={{
+              height: "30px",
+              width: "250px",
+              borderRadius: "5px",
+              border: "1px solid rgba(0, 0, 0, 0.263)",
+            }}
+          />
+          <button
+            style={{
+              height: "30px",
+              width: "250px",
+              borderRadius: "5px",
+              border: "1px solid rgba(0, 0, 0, 0.263)",
+              backgroundColor: "transparent",
+            }}
+          >
+            LOGIN
+          </button>
         </form>
-        <span>
+        <span style={{ display: "flex", gap: "10px", alignItems: "center" }}>
           <p>Already have an account?</p>
           <a href="">LOGIN</a>
         </span>
