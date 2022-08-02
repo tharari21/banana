@@ -11,48 +11,27 @@ import SelectedProductPage from "../components/SelectedProductPage";
 export const UserContext = createContext();
 
 function App() {
+  console.log('access token',localStorage.getItem('access_token'))
   const [user, setUser] = useState({})
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
   const [selectedProduct, setSelectedProduct]= useState({})
-  // useEffect(() => {
-
-  //   const getUser = async () => {
-  //     const req = await fetch("http://10.129.2.168:5000/auth/fetch-user", {
-  //       method: 'POST',
-  //       withCredentials: true,
-  //       headers: {
-  //         "Access-Control-Allow-Origin": "*",
-  //       },
-  //     });
-  //     const res = await req.json()
-  //     console.log('fetch user response', res)
-  //     setUser(res)
-  //   }
-  //   getUser()
-  // }, [])
-  console.log('user', user)
-  console.log('selected product',selectedProduct)
   return (
     <Router>
-      <div className="App">
         <UserContext.Provider value={value}>
+      <div className="App">
           <Sidebar />
-        </UserContext.Provider>
+        
         <Switch>
           <Route exact path={`/products/1`}>
             <SelectedProductPage />
           </Route>
           <Route exact path='/login'>
-            <UserContext.Provider value={value}>
-          <Sidebar />
+            <Sidebar />
             <LogInForm />
-        </UserContext.Provider>
           </Route>
           <Route exact path='/signup'>
-            <UserContext.Provider value={value}>
           <Sidebar />
             <SignUpForm />
-        </UserContext.Provider>
           </Route>
           <Route path="/">
             <Home />
@@ -60,6 +39,7 @@ function App() {
           </Route>
         </Switch>
       </div>
+      </UserContext.Provider>
     </Router>
   );
   }

@@ -18,14 +18,15 @@ const LogInComponent = ({setIsLogIn}) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setFormData(initialData);
-    const req = await fetch('http://10.129.2.168:5000/auth/login', {
+    const req = await fetch('http://10.129.2.168:4000/login', {
       method: 'POST',
       headers: {
-        "Content-type": 'application/json'
+        "Content-Type": 'application/json'
       },
       body: JSON.stringify(formData)
     })
     const res = await req.json()
+    localStorage.setItem('access_token', res.accessToken)
     setUser(res)
 
   }
