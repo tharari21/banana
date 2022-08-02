@@ -14,7 +14,7 @@ const ProductContainer = ({ setSelectedProduct }) => {
             setProducts(res);
         } catch (err) {
             console.log(err)
-            setErrors(err)
+            setErrors({errors: err})
         }
     };
     getProducts();
@@ -43,7 +43,7 @@ const ProductContainer = ({ setSelectedProduct }) => {
                 {products.map((product) => <ProductCard key={product.id} product={product} setSelectedProduct={setSelectedProduct}/>)}
             </div>
         )}
-        {errors && (
+        {errors.error && (
             <div style={{marginLeft: '10em'}}>
                 {JSON.stringify(errors)}
             </div>
