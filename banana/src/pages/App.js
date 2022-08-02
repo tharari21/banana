@@ -1,8 +1,8 @@
-import SignUpComponent from "../components/SignUpComponent";
+import SignUpForm from "../components/SignUpForm";
 function App() {
   return (
     <div className="App">
-        <SignUpComponent/>
+        <SignUpForm/>
     </div>
   );
 }

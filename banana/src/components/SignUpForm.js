@@ -1,4 +1,26 @@
+import {useState} from 'react'
+
 const SignUpComponent = () => {
+const [user, setUser]= useState({})
+const handleInput = (e)=> {
+setUser({
+  ...user,
+  [e.target.name]: e.target.value
+})
+}
+
+const handleSubmit = (e) => {
+e.preventDefault()
+// fetch('', {
+//   method: 'POST',
+//   header: {
+//     'Content-type': 'application/json'
+//   },
+//   body: JSON.stringify(user)
+// })
+
+}
+console.log(user)
   return (
     <div
       style={{
@@ -13,13 +35,14 @@ const SignUpComponent = () => {
       }}
     >
       <header>
-        <div style={{textAlign: 'center'}}>
-          <h4 style={{fontSize:'2rem'}}>SIGN UP</h4>
+        <div style={{ textAlign: "center" }}>
+          <h4 style={{ fontSize: "2rem" }}>SIGN UP</h4>
           <h3>Welcome to Banana</h3>
         </div>
         <form
           action=""
           style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+          onSubmit={handleSubmit}
         >
           <input
             type="email"
@@ -30,6 +53,7 @@ const SignUpComponent = () => {
               borderRadius: "5px",
               border: "1px solid rgba(0, 0, 0, 0.263)",
             }}
+            onChange={handleInput}
           />
           <input
             type="password"
@@ -40,6 +64,7 @@ const SignUpComponent = () => {
               borderRadius: "5px",
               border: "1px solid rgba(0, 0, 0, 0.263)",
             }}
+            onChange={handleInput}
           />
           <button
             style={{
