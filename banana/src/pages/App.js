@@ -34,7 +34,7 @@ function App() {
       <div className="App">
         <Sidebar />
         <Switch>
-          <Route path={`/products/1`}>
+          <Route exact path={`/products/1`}>
             <SelectedProductPage />
           </Route>
           <Route path="/">
