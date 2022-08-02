@@ -5,6 +5,7 @@ import ProductCard from './ProductCard'
 const ProductContainer = ({ setSelectedProduct }) => {
   const [products, setProducts] = useState([]);
   const [errors, setErrors] = useState({});
+
   useEffect(() => {
     const getProducts = async () => {
        try {
