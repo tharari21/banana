@@ -2,7 +2,6 @@ import {useState, useEffect, useContext} from 'react'
 import {UserContext} from '../pages/App'
 import { BrowserRouter as Router, Route, NavLink, Switch } from "react-router-dom";
 
-import LogInForm from './LogInForm'
 const Sidebar = () => {
     const {user, setUser} = useContext(UserContext)
     console.log('user in sidebar', user)
@@ -131,16 +130,7 @@ const Sidebar = () => {
     );
 
 
-    const sidebar = (
-      <Router>
-        <Switch>
-          <Route path="/login" element={<LogInForm/>}/>
-          <Route path="/signup" />
-          <Route path="/products" />
-        </Switch>
-        {isSidebarOpen ? openedSidebarList : closedSidebarList}
-      </Router>
-    );
+    
     const sidebarToggleBtn = (
       <button style={toggleSidebarBtn} onClick={toggleSidebar}>
         {isSidebarOpen ? (
@@ -156,7 +146,7 @@ const Sidebar = () => {
           style={isSidebarOpen ? opensidebarStyle : closedSidebarStyle}
         >
             {sidebarToggleBtn}
-            {sidebar}
+            {isSidebarOpen ? openedSidebarList : closedSidebarList}
         </div>
     );
 }

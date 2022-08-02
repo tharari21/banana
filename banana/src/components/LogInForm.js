@@ -18,7 +18,7 @@ const LogInComponent = ({setIsLogIn}) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setFormData(initialData);
-    const req = await fetch('http://localhost:5000/auth/login', {
+    const req = await fetch('http://10.129.2.168:5000/auth/login', {
       method: 'POST',
       headers: {
         "Content-type": 'application/json'
@@ -37,20 +37,21 @@ const LogInComponent = ({setIsLogIn}) => {
             height: "500px",
             width: "450px",
             display: "flex",
+            flexDirection: 'column',
             justifyContent: "center",
             alignItems: "center",
             postion: "relative",
             borderRadius: "10px",
-            backgroundColor: "white",
-            color: " rgb(252, 225, 128)",
+            backgroundColor: "black",
+            color: "rgb(252, 225, 128)",
             textShadow: "2px 2px rgba(0, 0, 0, 0.263)",
           }}
         >
-          <header>
-            <div style={{ textAlign: "center" }}>
+          <header style={{ textAlign: "center" }}>
               <h4 style={{ fontSize: "4rem", margin: "0" }}>LOGIN</h4>
               <h3 style={{ fontSize: "2rem" }}>Welcome to Banana</h3>
-            </div>
+          </header>
+
             <form
               action=""
               style={{ display: "flex", flexDirection: "column", gap: "10px" }}
@@ -106,7 +107,6 @@ const LogInComponent = ({setIsLogIn}) => {
                 SIGN UP
               </a>
             </span>
-          </header>
         </div>
       </div>
     );

@@ -4,7 +4,7 @@ const ProductCard = ({ product, setSelectedProduct }) => {
   const [images, setImages] = useState([]);
   useEffect(() => {
       const getImages = async () => {
-          const req = await fetch(`http://localhost:5000/products/${product.id}/images`);
+          const req = await fetch(`http://10.129.2.168:5000/products/${product.id}/images`);
           const res = await req.json();
           setImages(res)
       }
@@ -55,7 +55,7 @@ const ProductCard = ({ product, setSelectedProduct }) => {
                 <p>{stars}</p>
               </div>
             </span>
-            <h3>{product.price}</h3>
+            <h2>$ {product.price}</h2>
           </div>
         </div>
       </Link>

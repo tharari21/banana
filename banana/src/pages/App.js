@@ -1,10 +1,13 @@
 
 import { createContext, useState, useEffect, useMemo } from "react";
+import { BrowserRouter as Router, Route, NavLink, Switch, Link } from "react-router-dom";
+import LogInForm from '../components/LogInForm'
+import SignUpForm from '../components/SignUpForm'
+import Home from '../pages/Home'
 import Sidebar from '../components/Sidebar'
 import ProductContainer from '../components/ProductContainer'
-import Home from '../pages/Home'
-import { BrowserRouter as Router, Route, NavLink, Switch, Link } from "react-router-dom";
 import SelectedProductPage from "../components/SelectedProductPage";
+
 export const UserContext = createContext();
 
 function App() {
@@ -14,7 +17,7 @@ function App() {
   // useEffect(() => {
 
   //   const getUser = async () => {
-  //     const req = await fetch("http://localhost:5000/auth/fetch-user", {
+  //     const req = await fetch("http://10.129.2.168:5000/auth/fetch-user", {
   //       method: 'POST',
   //       withCredentials: true,
   //       headers: {
@@ -39,8 +42,19 @@ function App() {
           <Route exact path={`/products/1`}>
             <SelectedProductPage />
           </Route>
+          <Route exact path='/login'>
+            <UserContext.Provider value={value}>
+          <Sidebar />
+            <LogInForm />
+        </UserContext.Provider>
+          </Route>
+          <Route exact path='/signup'>
+            <UserContext.Provider value={value}>
+          <Sidebar />
+            <SignUpForm />
+        </UserContext.Provider>
+          </Route>
           <Route path="/">
-            
             <Home />
             <ProductContainer setSelectedProduct={setSelectedProduct} />
           </Route>
