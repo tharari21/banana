@@ -21,7 +21,7 @@ const LogInComponent = ({setIsLogIn}) => {
     // })
   }
     return (
-      <div style={{position: 'fixed', top: '25%', left: '45%'}}>
+      <div style={{ position: "fixed", top: "25%", left: "45%" }}>
         <div
           style={{
             border: "1px solid rgba(0, 0, 0, 0.263)",
@@ -32,13 +32,15 @@ const LogInComponent = ({setIsLogIn}) => {
             alignItems: "center",
             postion: "relative",
             borderRadius: "10px",
-            backgroundColor: 'white'
+            backgroundColor: "white",
+            color: " rgb(252, 225, 128)",
+            textShadow: "2px 2px rgba(0, 0, 0, 0.263)",
           }}
         >
           <header>
             <div style={{ textAlign: "center" }}>
-              <h4 style={{ fontSize: "2rem" }}>LOGIN</h4>
-              <h3>Welcome to Banana</h3>
+              <h4 style={{ fontSize: "4rem", margin: "0" }}>LOGIN</h4>
+              <h3 style={{ fontSize: "2rem" }}>Welcome to Banana</h3>
             </div>
             <form
               action=""
@@ -84,8 +86,15 @@ const LogInComponent = ({setIsLogIn}) => {
             <span
               style={{ display: "flex", gap: "10px", alignItems: "center" }}
             >
-              <p>Need an account?</p>
-              <a onClick={()=> {setIsLogIn(prev => !prev)}}>SIGN UP</a>
+              <p style={{ fontSize: "1.5rem" }}>Need an account?</p>
+              <a
+                onClick={() => {
+                  setIsLogIn((prev) => !prev);
+                }}
+                style={{ fontSize: "1.5rem" }}
+              >
+                SIGN UP
+              </a>
             </span>
           </header>
         </div>
