@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, NavLink, Switch } from "react-router-do
 const Sidebar = () => {
     const user = useContext(UserContext)
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [isLogIn, setIsLogIn]= useState(true)
+    // const [isSingUp, setIsSignUp]= useState(true)
     const toggleSidebar = () => {
         setIsSidebarOpen(prev => !prev)
     }
@@ -110,9 +112,24 @@ const Sidebar = () => {
           id="sidebar"
           style={isSidebarOpen ? opensidebarStyle : closedSidebarStyle}
         >
+<<<<<<< HEAD
             {sidebarToggleBtn}
             {sidebar}
           
+=======
+            <button style={toggleSidebarBtn} onClick={toggleSidebar}>
+            {isSidebarOpen ? (
+                <ion-icon name="chevron-back-circle-outline"></ion-icon>
+            ) : (
+                <ion-icon name="chevron-forward-circle-outline"></ion-icon>
+            )}
+            </button>
+          {isSidebarOpen ? openedSidebarList : closedSidebarList}
+            <button onClick={()=> {setIsLogIn(prev=> !prev)}}>LOG IN</button>
+            {/* <button onClick={()=> {setIsSignUp(prev=> !prev)}}>SIGN UP</button> */}
+                {isLogIn && <LogInForm setIsLogIn={setIsLogIn}/>}
+                {/* {isSignUp && <LogInForm/>} */}
+>>>>>>> c481c50662912d28b4f60ba1f9fc6b1644afcea7
         </div>
     );
 }

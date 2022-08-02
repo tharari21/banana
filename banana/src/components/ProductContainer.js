@@ -27,7 +27,7 @@ const ProductContainer = () => {
 
                     {products.map((product) => <ProductCard key={product.id} product={product}/>)}
             </div>
-        </div>
+    </div>
     )
 }
 export default ProductContainer;
