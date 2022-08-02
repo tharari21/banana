@@ -62,32 +62,36 @@ const Sidebar = () => {
       <ul style={openedListStyle}>
         <NavLink style={listItem} to="/">
           <ion-icon name="search-outline"></ion-icon>{" "}
-          <span style={sidebarNavItemText}>Search</span>
+          <span style={sidebarNavItemText}>SEARCH</span>
         </NavLink>
         <NavLink style={listItem} to="/">
           <ion-icon name="home-outline"></ion-icon>{" "}
-          <span style={sidebarNavItemText}>Home</span>
+          <span style={sidebarNavItemText}>HOME</span>
+        </NavLink>
+        <NavLink style={listItem} to="/cart">
+          <ion-icon name="cart-outline"></ion-icon>
+          <span style={sidebarNavItemText}>CART</span>
         </NavLink>
         {user.email ? (
           <>
             <NavLink style={{ ...listItem, ...bottomLink1 }} to="/profile">
               <ion-icon name="person-circle-outline"></ion-icon>{" "}
-              <span style={sidebarNavItemText}>Profile</span>
+              <span style={sidebarNavItemText}>PROFILE</span>
             </NavLink>
             <NavLink style={{ ...listItem, ...bottomLink2 }} to="/logout">
               <ion-icon name="log-out-outline"></ion-icon>
-              <span style={sidebarNavItemText}>Log Out</span>
+              <span style={sidebarNavItemText}>LOGOUT</span>
             </NavLink>
           </>
         ) : (
           <>
             <NavLink style={{ ...listItem, ...bottomLink1 }} to="/login">
               <ion-icon name="log-in-outline"></ion-icon>
-              <span style={sidebarNavItemText}>Log In</span>
+              <span style={sidebarNavItemText}>LOGIN</span>
             </NavLink>
             <NavLink style={{ ...listItem, ...bottomLink2 }} to="signup">
               <ion-icon name="person-add-outline"></ion-icon>
-              <span style={sidebarNavItemText}>Sign Up</span>
+              <span style={sidebarNavItemText}>SIGN UP</span>
             </NavLink>
           </>
         )}
@@ -100,6 +104,9 @@ const Sidebar = () => {
         </NavLink>
         <NavLink style={listItem} to="/">
           <ion-icon name="home-outline"></ion-icon>
+        </NavLink>
+        <NavLink style={listItem} to="/cart">
+          <ion-icon name="cart-outline"></ion-icon>
         </NavLink>
         {user.email ? (
           <>
