@@ -1,6 +1,8 @@
-import {useState, useEffect} from 'react'
-
+import {useState, useEffect, useContext} from 'react'
+import {UserContext} from '../pages/App'
+import { BrowserRouter as Router, Route, NavLink, Switch } from "react-router-dom";
 const Sidebar = () => {
+    const user = useContext(UserContext)
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const toggleSidebar = () => {
         setIsSidebarOpen(prev => !prev)
@@ -53,49 +55,65 @@ const Sidebar = () => {
     const profileLink = {position: 'absolute', bottom: '25px'}
     const openedSidebarList = (
       <ul style={openedListStyle}>
-        <a style={listItem} href="/">
-          <ion-icon name="home-outline"></ion-icon>{" "}
-          <span style={sidebarNavItemText}>Home</span>
-        </a>
-        <a style={listItem} href="/">
-          <ion-icon name="search-outline"></ion-icon>{" "}
-          <span style={sidebarNavItemText}>Search</span>
-        </a>
-        <a style={{ ...listItem, ...profileLink }} href="/">
-          <ion-icon name="person-circle-outline"></ion-icon>{" "}
-          <span style={sidebarNavItemText}>Profile</span>
-        </a>
+          <NavLink style={listItem} to="/">
+            <ion-icon name="home-outline"></ion-icon>{" "}
+            <span style={sidebarNavItemText}>Home</span>
+          </NavLink>
+          <NavLink style={listItem} to="/">
+            <ion-icon name="search-outline"></ion-icon>{" "}
+            <span style={sidebarNavItemText}>Search</span>
+          </NavLink>
+          <NavLink style={{ ...listItem, ...profileLink }} to="/profile">
+            <ion-icon name="person-circle-outline"></ion-icon>{" "}
+            <span style={sidebarNavItemText}>Profile</span>
+          </NavLink>
+
       </ul>
     );
     const closedSidebarList = (
       <ul style={closedListStyle}>
-        <a style={listItem} href="/">
+
+        <NavLink style={listItem} to="/">
           <ion-icon name="home-outline"></ion-icon>
-        </a>
-        <a style={listItem} href="/">
+        </NavLink>
+        <NavLink style={listItem} to="/">
           <ion-icon name="search-outline"></ion-icon>
-        </a>
-        <a style={{ ...listItem, ...profileLink }} href="/">
+        </NavLink>
+        <NavLink style={{ ...listItem, ...profileLink }} to="/">
           <ion-icon name="person-circle-outline"></ion-icon>
-        </a>
+        </NavLink>
       </ul>
     );
+
+
+    const sidebar = (
+      <Router>
+        <Switch>
+          <Route path="/login" />
+          <Route path="/signup" />
+          <Route path="/products" />
+        </Switch>
+        {isSidebarOpen ? openedSidebarList : closedSidebarList}
+      </Router>
+    );
+    const sidebarToggleBtn = (
+      <button style={toggleSidebarBtn} onClick={toggleSidebar}>
+        {isSidebarOpen ? (
+          <ion-icon name="chevron-back-circle-outline"></ion-icon>
+        ) : (
+          <ion-icon name="chevron-forward-circle-outline"></ion-icon>
+        )}
+      </button>
+    );
     return (
-      <>
         <div
           id="sidebar"
           style={isSidebarOpen ? opensidebarStyle : closedSidebarStyle}
         >
-            <button style={toggleSidebarBtn} onClick={toggleSidebar}>
-            {isSidebarOpen ? (
-                <ion-icon name="chevron-back-circle-outline"></ion-icon>
-            ) : (
-                <ion-icon name="chevron-forward-circle-outline"></ion-icon>
-            )}
-            </button>
-          {isSidebarOpen ? openedSidebarList : closedSidebarList}
+            {sidebarToggleBtn}
+            {sidebar}
+          
         </div>
-      </>
     );
 }
 

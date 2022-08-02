@@ -2,18 +2,14 @@ import {useState, useEffect} from 'react'
 
 const ProductCard = ({product}) => {
     const [images, setImages] = useState([])
-    console.log('product id',product.id)
     useEffect(() => {
         const getImages = async () => {
-            console.log('product id',product.id);
             const req = await fetch(`http://localhost:5000/products/${product.id}/images`);
             const res = await req.json();
-            console.log(res)
             setImages(res)
         }
         getImages()
     }, [])
-    console.log('images', images)
   // return (
   //   <div style={{ margin: '0 2em'}}>
   //       <h1>{product.name}</h1>
@@ -29,18 +25,31 @@ const ProductCard = ({product}) => {
         padding: "1em",
         borderRadius: "10px",
         boxShadow: "3px 3px 3px 3px rgba(0, 0, 0, 0.21)",
+        backgroundColor: "black",
+        color: "white",
+        margin: "1em 0",
       }}
     >
       <img
         style={{ maxWidth: "22em" }}
-        src="https://m.media-amazon.com/images/I/A14F1QVaPNL._AC_UL320_.jpg"
+        src={
+          images[0]?.url ||
+          "https://media.istockphoto.com/photos/chimpanzee-picture-id170615395?k=20&m=170615395&s=612x612&w=0&h=CswkxjdPpmDOF7FLJ64nuaYrQzsreIS2Ph9KV4ln15g="
+        }
         alt=""
       />
       <div style={{ padding: "1em 0em 0.5em 0.5em" }}>
         {" "}
         <span style={{ display: "flex", gap: "3em" }}>
-          <p>{"name of product"}</p>
-          <div style={{ display: "flex", flexDirection: 'colomn', alignItems: 'center', gap:'5px'}}>
+          <p>{product.name}</p>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "colomn",
+              alignItems: "center",
+              gap: "5px",
+            }}
+          >
             <ion-icon name="star"></ion-icon>
             <p>{"product rating"}</p>
           </div>

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 import {useState, useEffect} from 'react';
 import ProductCard from './ProductCard'
@@ -14,26 +13,20 @@ const ProductContainer = () => {
         getProducts();
     }, [])
 
-    const productContainer = {display: 'flex', justifyContent: 'center'}
     return (
         <div
     style={{
-      height: "100vh",
+      height: "auto",
       width: "100%",
       backgroundColor: "#fed13056",
       color: "black",
+      padding: '1em'
     }}
   >
-    <div style={{ marginLeft: "20%" }}>
+            <div style={{ marginLeft: "20%", display: 'flex', flexWrap: 'wrap', gap: '2em'}}>
 
-            {products.map((product) => <ProductCard key={product.id} product={product}/>)}
-    </div>
-=======
-const ProductContainer = () => {
-    return (
-        <div>
-            {'To be filled with auto generated cards'}
->>>>>>> ProductCard
+                    {products.map((product) => <ProductCard key={product.id} product={product}/>)}
+            </div>
         </div>
     )
 }
