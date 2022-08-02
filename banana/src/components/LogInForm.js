@@ -73,11 +73,12 @@ const LogInComponent = ({setIsLogIn}) => {
               />
               <button
                 style={{
-                  height: "30px",
+                  height: "35px",
                   width: "250px",
                   borderRadius: "5px",
                   border: "1px solid rgba(0, 0, 0, 0.263)",
                   backgroundColor: "transparent",
+                  fontWeight: "bold",
                 }}
               >
                 SIGN UP
