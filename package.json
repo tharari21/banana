@@ -1,5 +1,9 @@
 {
   "dependencies": {
+<<<<<<< HEAD
     "jsonwebtoken": "^8.5.1"
+=======
+    "react-router-dom": "^5.3.3"
+>>>>>>> cb51dccadd4cba8c12522d9583b56d3b208bba31
   }
 }

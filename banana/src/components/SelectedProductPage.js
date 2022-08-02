@@ -1,8 +1,8 @@
-const SelectedProductContainer = () => {
+const SelectedProductPage = () => {
 
  return (
-   <div>
-     <h2>Name of Product</h2>
+   <div style={{marginLeft:'20%', display: "flex" , flexDirection: 'column', alignItems: 'center', color: 'black'}}>
+     <h2 style={{fontSize: '4rem'}}>Name of Product</h2>
      <span>* 4.91 Number of reviews</span>
      <div id="SelectedProductImageContainer">
        <img src="" alt="" />
@@ -32,4 +32,4 @@ const SelectedProductContainer = () => {
  );   
 }
 
-export default SelectedProductContainer
+export default SelectedProductPage
