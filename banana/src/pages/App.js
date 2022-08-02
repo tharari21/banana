@@ -6,6 +6,7 @@ import SignUpForm from '../components/SignUpForm'
 import Home from '../pages/Home'
 import Sidebar from '../components/Sidebar'
 import ProductContainer from '../components/ProductContainer'
+import Cart from "./Cart";
 import SelectedProductPage from "../components/SelectedProductPage";
 
 export const UserContext = createContext();
@@ -22,7 +23,8 @@ function App() {
           <Sidebar />
         
         <Switch>
-          <Route exact path={`/products/1`}>
+         
+          <Route exact key={1} path={`/products/1`}>
             <SelectedProductPage />
           </Route>
           <Route exact path='/login'>
@@ -37,6 +39,10 @@ function App() {
             <Home />
             <ProductContainer setSelectedProduct={setSelectedProduct} />
           </Route>
+           <Route key={3} exact path='/cart'>
+            <Cart/>
+          </Route>
+          
         </Switch>
       </div>
       </UserContext.Provider>
