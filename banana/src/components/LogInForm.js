@@ -1,24 +1,33 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import {UserContext} from '../pages/App'
+
+const initialData = {
+  email: "",
+  password: ""
+}
 const LogInComponent = ({setIsLogIn}) => {
-  
-  const [user, setUser] = useState({})
+  const {user,setUser} = useContext(UserContext)
+  const [formData, setFormData] = useState(initialData)
   const handleInput = (e) => {
-    setUser({
-      ...user,
+    setFormData({
+      ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    e.target.reset()
-    // fetch('http://localhost:3000/auth/login', {
-    //   method: 'POST',
-    //   headers: {
-    //     "Content-type": 'application/json'
-    //   },
-    //   body: JSON.stringify(user)
-    // })
+    setFormData(initialData);
+    const req = await fetch('http://localhost:5000/auth/login', {
+      method: 'POST',
+      headers: {
+        "Content-type": 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    const res = await req.json()
+    setUser(res)
+
   }
     return (
       <div style={{ position: "fixed", top: "25%", left: "45%" }}>
@@ -61,7 +70,7 @@ const LogInComponent = ({setIsLogIn}) => {
               />
               <input
                 type="password"
-                name="passowrd"
+                name="password"
                 placeholder="Password"
                 style={{
                   height: "30px",

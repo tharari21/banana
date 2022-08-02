@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useMemo } from "react";
 import Sidebar from '../components/Sidebar'
 import ProductContainer from '../components/ProductContainer'
 import Home from '../pages/Home'
@@ -7,6 +7,7 @@ export const UserContext = createContext();
 
 function App() {
   const [user, setUser] = useState({})
+  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
   useEffect(() => {
 
     const getUser = async () => {
@@ -18,14 +19,15 @@ function App() {
         },
       });
       const res = await req.json()
-      console.log('res', res)
+      console.log('fetch user response', res)
       setUser(res)
     }
     getUser()
   }, [])
+  console.log('user', user)
   return (
     <div className="App">
-      <UserContext.Provider value={user} >
+      <UserContext.Provider value={value} >
         <Sidebar/> 
       </UserContext.Provider>
       <Home/>

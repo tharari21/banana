@@ -7,7 +7,6 @@ const ProductContainer = () => {
         const getProducts = async () => {
             const req = await fetch('http://localhost:5000/products');
             const res = await req.json();
-            console.log('products', res)
             setProducts(res);
         }
         getProducts();
