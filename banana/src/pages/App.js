@@ -32,13 +32,15 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Sidebar />
+        <UserContext.Provider value={value}>
+          <Sidebar />
+        </UserContext.Provider>
         <Switch>
           <Route exact path={`/products/1`}>
             <SelectedProductPage />
           </Route>
           <Route path="/">
-            <UserContext.Provider value={value}></UserContext.Provider>
+            
             <Home />
             <ProductContainer setSelectedProduct={setSelectedProduct} />
           </Route>
