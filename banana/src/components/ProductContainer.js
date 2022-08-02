@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 import {useState, useEffect} from 'react';
 import ProductCard from './ProductCard'
@@ -27,6 +28,12 @@ const ProductContainer = () => {
 
             {products.map((product) => <ProductCard key={product.id} product={product}/>)}
     </div>
+=======
+const ProductContainer = () => {
+    return (
+        <div>
+            {'To be filled with auto generated cards'}
+>>>>>>> ProductCard
         </div>
     )
 }
