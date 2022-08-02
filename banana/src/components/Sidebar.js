@@ -94,6 +94,7 @@ const Sidebar = () => {
             )}
             </button>
           {isSidebarOpen ? openedSidebarList : closedSidebarList}
+            <button>Sign In</button>
         </div>
       </>
     );
