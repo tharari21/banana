@@ -1,11 +1,13 @@
-import LogInComponent from "../components/LogIn";
-
+import Sidebar from '../components/Sidebar'
+import ProductContainer from '../components/ProductContainer'
+import Home from '../pages/Home'
 function App() {
   return (
     <div className="App">
-      <LogInComponent/>
+      <Sidebar/> 
+      <Home/>
+      <ProductContainer/>
     </div>
   );
-}
-
+  }
 export default App;

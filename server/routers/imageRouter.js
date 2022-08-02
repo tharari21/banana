@@ -1,26 +1,33 @@
 const express = require('express');
 const pool = require("../db");
 const router = express.Router({ mergeParams: true });
-
+const format = require('pg-format')
 
 router.get("/", async (req, res) => {
   // return product req.params.id's images
-  console.log(req.params.productId)
   const imagesQuery = await pool.query('SELECT * FROM images WHERE product_id=$1', [req.params.productId])
-  res.json({images: imagesQuery.rows})
+  res.json( imagesQuery.rows )
 
 });
 router.post("/", async (req, res) => {
   // Create image for product req.params.id
-  const {url} = req.body
+  const urls = req.body.map(url => [parseInt(req.params.productId) , url])
   try{
-  const postImageQuery = await pool.query('INSERT INTO images (product_id, url) VALUES($1,$2) RETURNING id, product_id, url', [req.params.productId, url]) 
-  if (postImageQuery.rowCount === 1){
-      res.json({image: postImageQuery.rows[0]})
+    console.log('q')
+    const postImageQuery = await pool.query(
+      format(
+        "INSERT INTO images (product_id, url) VALUES %L RETURNING id, product_id, url",
+        urls
+      )
+    ); 
+    console.log(postImageQuery.rows);
+  if (postImageQuery.rowCount > 0){
+      res.json(postImageQuery.rows)
   }else {
         res.json({ message: "failed to post image" });
   }
-  }catch{
+  }catch (err){
+    console.log(err)
     res.json({message: 'failed to post image'})
   }
 });
