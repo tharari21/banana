@@ -8,12 +8,8 @@ const usersRouter = require("./routers/usersRouter");
 
 const app = express();
 app.use(express.json());
-app.set('trust proxy', 1) // trust first proxy
-app.use(cors({
-  origin: ['http://10.129.2.168:3000'],
-  methods: ['GET', 'POST'],
-  credentials: true
-}));
+// app.set('trust proxy', 1) // trust first proxy
+app.use(cors());
 
 
 app.use("/products", productsRouter);

@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server1": "nodemon server.js",
-    "server2": "nodemon authServer.js"
+    "server": "nodemon server.js",
+    "authserver": "nodemon authServer.js"
   },
   "author": "",
   "license": "ISC",

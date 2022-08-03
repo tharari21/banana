@@ -12,7 +12,7 @@ import SearchPage from "./SearchPage";
 export const UserContext = createContext();
 
 function App() {
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
   const [selectedProduct, setSelectedProduct]= useState({})
   // useEffect(() => {
@@ -41,7 +41,7 @@ function App() {
         
         <Switch>
          
-          <Route exact key={1} path={`/products/1`}>
+          <Route exact key={1} path={`/products/${selectedProduct.id}`}>
             <SelectedProductPage />
           </Route>
           <Route exact key={2} path='/login'>

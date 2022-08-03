@@ -8,6 +8,7 @@ const initialData = {
 const AuthForm = ({type}) => {
   const {user,setUser} = useContext(UserContext)
   const [formData, setFormData] = useState(initialData)
+  const [formErrors, setFormErrors] = useState(null)
   const handleInput = (e) => {
     setFormData({
       ...formData,
@@ -18,12 +19,12 @@ const AuthForm = ({type}) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (type === 'signup') {
-        const req = await fetch('http://10.129.2.168:4000/signup', {
+        const req = await fetch('http://localhost:4000/signup', {
           method: 'POST',
           headers: {
             "Content-Type": 'application/json'
           },
-          body: JSON.stringify(formData)
+          body: JSON.stringify({...formData, isSeller: false})
         })
         const res = await req.json()
         
@@ -35,11 +36,15 @@ const AuthForm = ({type}) => {
           headers: {
             "Content-Type": 'application/json'
           },
-          body: JSON.stringify(formData)
+          body: JSON.stringify({...formData, isSeller: false})
         })
         const res = await req.json()
-        localStorage.setItem('user', JSON.stringify(res))
-        setUser(res)
+        if (res.user) {
+            localStorage.setItem('user', JSON.stringify(res))
+            setUser(res)
+        } else {
+            setFormErrors(res)
+        }
     }
     setFormData(initialData);
 
@@ -97,6 +102,7 @@ const AuthForm = ({type}) => {
                 }}
                 onChange={handleInput}
               />
+              {formErrors && <p>{formErrors.message}</p>}
               <input
                 style={{
                   height: "35px",
@@ -116,12 +122,12 @@ const AuthForm = ({type}) => {
               style={{ display: "flex", gap: "10px", alignItems: "center" }}
             >
                 
-              <p style={{ fontSize: "1.5rem" }}>{type==='login' ? "Have an account?" : "Need an account?"}</p>
+              <p style={{ fontSize: "1.5rem" }}>{type==="login" ? "Need an account?" : "Have an account?"}</p>
               <NavLink
-                to={type==='login' ? "/signup" : "/login"}
+                to={type==="login" ? "/signup" : "/login"}
                 style={({isActive}) => isActive ? { color: 'black', textDecoration: 'none',fontSize: "1.5rem" } : {color: 'black', textDecoration: 'none',fontSize: "1.5rem"}} 
               >
-                {name}
+                {type === "login" ? "SIGN UP" : "LOG IN"}
               </NavLink>
             </span>
         </div>

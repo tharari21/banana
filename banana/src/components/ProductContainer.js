@@ -8,7 +8,7 @@ const ProductContainer = ({ setSelectedProduct }) => {
   useEffect(() => {
     const getProducts = async () => {
        try {
-            const req = await fetch("https://localhost:5000/products");
+            const req = await fetch("http://localhost:5000/products");
             const res = await req.json();
             setProducts(res);
         } catch (err) {

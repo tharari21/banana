@@ -3,8 +3,7 @@ import {UserContext} from '../pages/App'
 import { BrowserRouter as Router, Route, NavLink, Switch } from "react-router-dom";
 
 const Sidebar = () => {
-    // const {user, setUser} = useContext(UserContext)
-    const user = JSON.parse(localStorage.getItem('user'))?.user
+    const {user, setUser} = useContext(UserContext)
     console.log('user in sidebar', user)
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const toggleSidebar = () => {
@@ -25,7 +24,14 @@ const Sidebar = () => {
       }
     }, [])
 
-    
+    const logout = async () => {
+      // const req = await fetch('http://localhost:4000/logout');
+      // const res = await req.json();
+      localStorage.clear();
+      setUser(null)
+      // console.log(res)
+
+    }
     
     const opensidebarStyle = { position: 'fixed', left: '0', top: '0', width: '15%', minWidth: '150px' ,height: '100%', backgroundColor: 'black', transition: '0.3s' }
     const closedSidebarStyle = {
@@ -76,10 +82,10 @@ const Sidebar = () => {
               <ion-icon name="person-circle-outline"></ion-icon>{" "}
               <span style={sidebarNavItemText}>PROFILE</span>
             </NavLink>
-            <NavLink style={{ ...listItem, ...bottomLink2 }} to="/logout">
+            <div style={{ ...listItem, ...bottomLink2, cursor: 'pointer' }} to="/logout" onClick={logout}>
               <ion-icon name="log-out-outline"></ion-icon>
               <span style={sidebarNavItemText}>LOGOUT</span>
-            </NavLink>
+            </div>
           </>
         ) : (
           <>
@@ -87,7 +93,7 @@ const Sidebar = () => {
               <ion-icon name="log-in-outline"></ion-icon>
               <span style={sidebarNavItemText}>LOGIN</span>
             </NavLink>
-            <NavLink style={{ ...listItem, ...bottomLink2 }} to="signup">
+            <NavLink style={{ ...listItem, ...bottomLink2 }} to="/signup">
               <ion-icon name="person-add-outline"></ion-icon>
               <span style={sidebarNavItemText}>SIGN UP</span>
             </NavLink>
@@ -97,8 +103,8 @@ const Sidebar = () => {
     );
     const closedSidebarList = (
       <ul style={closedListStyle}>
-        <NavLink style={listItem} to="/">
-          <ion-icon name="search-outline"></ion-icon>
+        <NavLink style={listItem} to="/products">
+          <ion-icon name="pricetags-outline"></ion-icon>
         </NavLink>
         <NavLink style={listItem} to="/">
           <ion-icon name="home-outline"></ion-icon>
@@ -111,9 +117,9 @@ const Sidebar = () => {
             <NavLink style={{ ...listItem, ...bottomLink1 }} to="/profile">
               <ion-icon name="person-circle-outline"></ion-icon>{" "}
             </NavLink>
-            <NavLink style={{ ...listItem, ...bottomLink2 }} to="/logout">
+            <div style={{ ...listItem, ...bottomLink2, cursor: 'pointer' }} onClick={logout}>
               <ion-icon name="log-out-outline"></ion-icon>
-            </NavLink>
+            </div>
           </>
         ) : (
           <>

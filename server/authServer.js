@@ -12,7 +12,7 @@ const generateAccessToken = (user) => {
 };
 
 
-app.delete("/logout", async (req, res) => {
+app.get("/logout", async (req, res) => {
     localStorage.clear();
 //   const deleteTokenQuery = await pool.query(
 //     "DELETE FROM tokens WHERE token=$1",
@@ -27,7 +27,6 @@ app.delete("/logout", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-    console.log('logging in')
   const { email, password } = req.body;
   const potentialLogin = await pool.query(
     "SELECT id, email, hashedpassword FROM users WHERE email = $1",
@@ -55,7 +54,6 @@ app.post("/login", async (req, res) => {
   }
 });
 app.post("/signup", async (req, res) => {
-    console.log(req.body);
   const { email, password, isSeller } = req.body;
   const existingUser = await pool.query(
     "SELECT email FROM users WHERE email =$1",
