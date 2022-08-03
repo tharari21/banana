@@ -1,7 +1,6 @@
-
 import { createContext, useState, useEffect, useMemo } from "react";
 import { BrowserRouter as Router, Route, NavLink, Switch, Link } from "react-router-dom";
-import AuthForm from '../components/AuthForm'
+import AuthForm from "../components/AuthForm";
 import Home from '../pages/Home'
 import Sidebar from '../components/Sidebar'
 import ProductContainer from '../components/ProductContainer'
@@ -31,7 +30,6 @@ function App() {
   //   }
   //   getUser()
   // }, [])
-  console.log('user', user)
   console.log('selected product',selectedProduct)
   return (
     <Router>
@@ -40,9 +38,9 @@ function App() {
           <Sidebar />
         
         <Switch>
-         
-          <Route exact key={1} path={`/products/${selectedProduct.id}`}>
-            <SelectedProductPage />
+          
+          <Route exact key={1} path={`/products:id=${selectedProduct.id}`}>
+            <SelectedProductPage selectedProduct={selectedProduct}/>
           </Route>
           <Route exact key={2} path='/login'>
             <AuthForm type="login" />
@@ -54,7 +52,7 @@ function App() {
             <Cart />
           </Route>
           <Route key={5} exact path='/products'>
-            <SearchPage/>
+            <SearchPage />
           </Route>
           <Route path="/" >
             <Home />
