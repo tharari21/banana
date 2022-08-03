@@ -8,14 +8,11 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 const generateAccessToken = (user) => {
-  return [
-    jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "30m" }),
-    jwt.sign(user, process.env.REFRESH_TOKEN_SECRET),
-  ];
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "24h" })
 };
 
 
-app.delete("/logout", async (req, res) => {
+app.get("/logout", async (req, res) => {
     localStorage.clear();
 //   const deleteTokenQuery = await pool.query(
 //     "DELETE FROM tokens WHERE token=$1",
@@ -30,7 +27,6 @@ app.delete("/logout", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-    console.log('logging in')
   const { email, password } = req.body;
   const potentialLogin = await pool.query(
     "SELECT id, email, hashedpassword FROM users WHERE email = $1",
@@ -47,9 +43,9 @@ app.post("/login", async (req, res) => {
         email,
         id: potentialLogin.rows[0].id,
       };
-      const [accessToken, refreshToken] = generateAccessToken(user);
+      const accessToken = generateAccessToken(user);
 
-      res.json({ user, accessToken, refreshToken });
+      res.json({ user, accessToken });
     } else {
       res.json({ message: "not logged in" });
     }
@@ -58,7 +54,6 @@ app.post("/login", async (req, res) => {
   }
 });
 app.post("/signup", async (req, res) => {
-    console.log(req.body);
   const { email, password, isSeller } = req.body;
   const existingUser = await pool.query(
     "SELECT email FROM users WHERE email =$1",
@@ -74,9 +69,9 @@ app.post("/signup", async (req, res) => {
       email,
       id: newUserQuery.rows[0].id,
     };
-    const [accessToken, refreshToken] = generateAccessToken(user);
+    const accessToken = generateAccessToken(user);
 
-    res.json({ user, accessToken, refreshToken });
+    res.json({ user, accessToken });
   } else {
     res.json({ message: "An account with that email already exists" });
   }

@@ -1,11 +1,22 @@
+import {useEffect} from 'react'
 import CartProductCard from "../components/CartProductCard"
+
+
 const Cart = () => {
+    useEffect(() => {
+        const getCart = async () => {
+            const { user: { id }} = JSON.parse(localStorage.getItem('user'))
+            const req = await fetch(`http://localhost:5000/cart?userId=${id}`)
+            const res = await req.json()
+        }
+        getCart()
+    }, [])
     return (
         <div style={{marginLeft: '20%'}}>
              <div style={{color: 'black', marginTop:'20%'}}>
                 <h1>1 item in your cart</h1>
                <div style={{display: 'flex', justifyContent: 'center', gap: '10%'}}>
-                <div>
+                <div>   
                 <CartProductCard/>
                 {'create cards here'}
                 </div>

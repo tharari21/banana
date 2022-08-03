@@ -4,6 +4,8 @@ const router = express.Router();
 const imageRouter = require('./imageRouter');
 const jwt = require('jsonwebtoken')
 const authenticateToken = (req, res, next) => {
+
+  
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
   if (!token) {
@@ -12,6 +14,7 @@ const authenticateToken = (req, res, next) => {
   }
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     if (err) {
+      
       res.json({message: 'Token no longer valid'})// A token was given but is no longer valid
     } else {
       req.user = user;
@@ -23,10 +26,10 @@ const authenticateToken = (req, res, next) => {
 
 router.get('/',  async (req, res) => {
     // return all products
-
     try {
         const productsQuery = await pool.query('SELECT * FROM products');
         if (productsQuery.rowCount > 0) {
+          console.log(productsQuery.rows)
           res.json( productsQuery.rows );
         } else {
           res.json({message: "No Products"});

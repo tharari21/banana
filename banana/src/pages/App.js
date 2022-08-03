@@ -1,8 +1,7 @@
 
 import { createContext, useState, useEffect, useMemo } from "react";
 import { BrowserRouter as Router, Route, NavLink, Switch, Link } from "react-router-dom";
-import LogInForm from '../components/LogInForm'
-import SignUpForm from '../components/SignUpForm'
+import AuthForm from '../components/AuthForm'
 import Home from '../pages/Home'
 import Sidebar from '../components/Sidebar'
 import ProductContainer from '../components/ProductContainer'
@@ -13,7 +12,7 @@ import SearchPage from "./SearchPage";
 export const UserContext = createContext();
 
 function App() {
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
   const [selectedProduct, setSelectedProduct]= useState({})
   // useEffect(() => {
@@ -39,33 +38,30 @@ function App() {
       <div className="App">
         <UserContext.Provider value={value}>
           <Sidebar />
-        </UserContext.Provider>
+        
         <Switch>
          
-          <Route exact key={1} path={`/products/1`}>
+          <Route exact key={1} path={`/products/${selectedProduct.id}`}>
             <SelectedProductPage />
           </Route>
           <Route exact key={2} path='/login'>
-             <UserContext.Provider value={value}>
-            <LogInForm />
-        </UserContext.Provider>
+            <AuthForm type="login" />
           </Route>
           <Route exact key={3} path='/signup'>
-            <UserContext.Provider value={value}>
-            <SignUpForm />
-            </UserContext.Provider>
+            <AuthForm type="signup" />
           </Route>
-           <Route key={4} exact path='/cart'>
-            <Cart/>
+          <Route exact key={4} path='/cart'>
+            <Cart />
           </Route>
           <Route key={5} exact path='/products'>
             <SearchPage/>
           </Route>
-          <Route path="/">
+          <Route path="/" >
             <Home />
             <ProductContainer setSelectedProduct={setSelectedProduct} />
           </Route>
         </Switch>
+        </UserContext.Provider>
       </div>
     </Router>
   );
