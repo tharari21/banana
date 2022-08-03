@@ -12,27 +12,10 @@ import SearchPage from "./SearchPage";
 export const UserContext = createContext();
 
 function App() {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('session')))
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
   const [selectedProduct, setSelectedProduct]= useState({})
-  // useEffect(() => {
-
-  //   const getUser = async () => {
-  //     const req = await fetch("http://10.129.2.168:5000/auth/fetch-user", {
-  //       method: 'POST',
-  //       withCredentials: true,
-  //       headers: {
-  //         "Access-Control-Allow-Origin": "*",
-  //       },
-  //     });
-  //     const res = await req.json()
-  //     console.log('fetch user response', res)
-  //     setUser(res)
-  //   }
-  //   getUser()
-  // }, [])
-  console.log('user', user)
-  console.log('selected product',selectedProduct)
+  
   return (
     <Router>
       <div className="App">

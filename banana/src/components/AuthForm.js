@@ -28,7 +28,7 @@ const AuthForm = ({type}) => {
         })
         const res = await req.json()
         
-        localStorage.setItem('user', JSON.stringify(res))
+        localStorage.setItem('session', JSON.stringify(res))
         setUser(res)
     } else {
         const req = await fetch('http://10.129.2.168:4000/login', {
@@ -40,7 +40,7 @@ const AuthForm = ({type}) => {
         })
         const res = await req.json()
         if (res.user) {
-            localStorage.setItem('user', JSON.stringify(res))
+            localStorage.setItem('session', JSON.stringify(res))
             setUser(res)
         } else {
             setFormErrors(res)
