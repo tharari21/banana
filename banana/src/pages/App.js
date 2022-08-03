@@ -58,7 +58,7 @@ function App() {
            <Route key={4} exact path='/cart'>
             <Cart/>
           </Route>
-          <Route key={5} exact path='/search'>
+          <Route key={5} exact path='/products'>
             <SearchPage/>
           </Route>
           <Route path="/">

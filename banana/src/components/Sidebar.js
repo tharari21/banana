@@ -59,9 +59,9 @@ const Sidebar = () => {
     const bottomLink2 = {position: 'absolute', bottom: '90px'}
     const openedSidebarList = (
       <ul style={openedListStyle}>
-        <NavLink style={listItem} to="/search">
-          <ion-icon name="search-outline"></ion-icon>{" "}
-          <span style={sidebarNavItemText}>SEARCH</span>
+        <NavLink style={listItem} to="/products">
+          <ion-icon name="pricetags-outline"></ion-icon>{" "}
+          <span style={sidebarNavItemText}>PRODUCTS</span>
         </NavLink>
         <NavLink style={listItem} to="/">
           <ion-icon name="home-outline"></ion-icon>{" "}
