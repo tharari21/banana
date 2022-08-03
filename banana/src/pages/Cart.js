@@ -1,13 +1,19 @@
-import {useEffect} from 'react'
+import {useEffect, useState, useContext} from 'react'
 import CartProductCard from "../components/CartProductCard"
+import {UserContext} from '../pages/App'
 
 
 const Cart = () => {
+    const {user, setUser} = useContext(UserContext)
+    console.log(user)
+    const [cart, setCart] = useState(null)
     useEffect(() => {
         const getCart = async () => {
-            const { user: { id }} = JSON.parse(localStorage.getItem('user'))
-            const req = await fetch(`http://localhost:5000/cart?userId=${id}`)
-            const res = await req.json()
+            const req = await fetch(`http://localhost:5000/cart?userId=${user.user.id}`)
+            const res = await req.json();
+
+            console.log(res)
+            setCart(res)
         }
         getCart()
     }, [])
@@ -17,8 +23,9 @@ const Cart = () => {
                 <h1>1 item in your cart</h1>
                <div style={{display: 'flex', justifyContent: 'center', gap: '10%'}}>
                 <div>   
-                <CartProductCard/>
-                {'create cards here'}
+
+                
+                {cart && cart.map(cartItem=><CartProductCard product={cartItem}/>)}
                 </div>
                         <div style={{boxShadow: '5px 5px 5px 5px rgba(0,0,0,0.1)', height: '300px', width: '300px', display: 'flex', justifyContent: 'center', borderRadius: '5px', flexDirection:'column', padding: '30px'}}>
                             <p style={{fontSize: '1.4rem'}}>How you'll pay</p>

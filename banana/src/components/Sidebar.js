@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, NavLink, Switch } from "react-router-do
 
 const Sidebar = () => {
     const {user, setUser} = useContext(UserContext)
-    console.log('user in sidebar', user)
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const toggleSidebar = () => {
         setIsSidebarOpen(prev => !prev)

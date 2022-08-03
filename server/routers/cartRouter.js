@@ -5,13 +5,16 @@ const router = express.Router()
 
 router.get('/', async (req, res) => {
   const {userId} = req.query
-  console.log(userId)
   try {
     const userCartQuery = await pool.query('SELECT * FROM cart WHERE user_id=$1', [userId])
     const productIds = userCartQuery.rows.map(cartItem => cartItem.product_id)
     if (productIds.length) {
       const productsQuery = await pool.query(format('SELECT * FROM products WHERE id IN (%L)', productIds) )
-      res.json(userCartQuery.rows)
+      console.log(productsQuery.rows)
+      // monster line of code right here
+      const cart = userCartQuery.rows.map(cartItem => {return {...cartItem, ...productsQuery.rows.find(product => product.id === cartItem.product_id)}})
+
+      res.json(cart)
     } else {
       res.json([])
     }

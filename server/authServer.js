@@ -14,16 +14,6 @@ const generateAccessToken = (user) => {
 
 app.get("/logout", async (req, res) => {
     localStorage.clear();
-//   const deleteTokenQuery = await pool.query(
-//     "DELETE FROM tokens WHERE token=$1",
-//     [req.body.token]
-//   );
-//   if (deleteTokenQuery.rowCount === 1) {
-//     res.sendStatus(204);
-//     res.redirect("/login");
-//   } else {
-//     res.sendStatus();
-//   }
 });
 
 app.post("/login", async (req, res) => {
