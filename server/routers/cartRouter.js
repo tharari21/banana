@@ -12,7 +12,13 @@ router.get('/', async (req, res) => {
       const productsQuery = await pool.query(format('SELECT * FROM products WHERE id IN (%L)', productIds) )
       console.log(productsQuery.rows)
       // monster line of code right here
-      const cart = userCartQuery.rows.map(cartItem => {return {...cartItem, ...productsQuery.rows.find(product => product.id === cartItem.product_id)}})
+      const cart = userCartQuery.rows.map(cartItem => (
+        {
+            ...cartItem, 
+            // ...productsQuery.rows.find(product => product.id === cartItem.product_id)
+            product: productsQuery.rows.find(product => product.id === cartItem.product_id)
+        }
+        ))
 
       res.json(cart)
     } else {
