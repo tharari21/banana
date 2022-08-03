@@ -53,8 +53,8 @@ function App() {
           <Route exact key={4} path='/cart'>
             <Cart />
           </Route>
-          <Route exact key={5} path='/search'>
-            <SearchPage />
+          <Route key={5} exact path='/products'>
+            <SearchPage/>
           </Route>
           <Route path="/" >
             <Home />
