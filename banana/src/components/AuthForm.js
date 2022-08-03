@@ -26,7 +26,8 @@ const AuthForm = ({type}) => {
           body: JSON.stringify(formData)
         })
         const res = await req.json()
-        localStorage.setItem('access_token', res.accessToken)
+        
+        localStorage.setItem('user', JSON.stringify(res))
         setUser(res)
     } else {
         const req = await fetch('http://10.129.2.168:4000/login', {
@@ -37,7 +38,7 @@ const AuthForm = ({type}) => {
           body: JSON.stringify(formData)
         })
         const res = await req.json()
-        localStorage.setItem('access_token', res.accessToken)
+        localStorage.setItem('user', JSON.stringify(res))
         setUser(res)
     }
     setFormData(initialData);

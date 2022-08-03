@@ -3,11 +3,10 @@ import {UserContext} from '../pages/App'
 import { BrowserRouter as Router, Route, NavLink, Switch } from "react-router-dom";
 
 const Sidebar = () => {
-    const {user, setUser} = useContext(UserContext)
+    // const {user, setUser} = useContext(UserContext)
+    const user = JSON.parse(localStorage.getItem('user'))?.user
     console.log('user in sidebar', user)
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-    const [isLogIn, setIsLogIn]= useState(false)
-    // const [isSingUp, setIsSignUp]= useState(true)
     const toggleSidebar = () => {
         setIsSidebarOpen(prev => !prev)
     }
@@ -71,7 +70,7 @@ const Sidebar = () => {
           <ion-icon name="cart-outline"></ion-icon>
           <span style={sidebarNavItemText}>CART</span>
         </NavLink>
-        {user.email ? (
+        {user ? (
           <>
             <NavLink style={{ ...listItem, ...bottomLink1 }} to="/profile">
               <ion-icon name="person-circle-outline"></ion-icon>{" "}
@@ -107,7 +106,7 @@ const Sidebar = () => {
         <NavLink style={listItem} to="/cart">
           <ion-icon name="cart-outline"></ion-icon>
         </NavLink>
-        {user.email ? (
+        {user ? (
           <>
             <NavLink style={{ ...listItem, ...bottomLink1 }} to="/profile">
               <ion-icon name="person-circle-outline"></ion-icon>{" "}

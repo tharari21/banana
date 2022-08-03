@@ -1,7 +1,9 @@
 const express = require('express')
 const cors = require('cors')
+
 const productsRouter = require('./routers/productsRouter')
 const categoriesRouter = require("./routers/categoriesRouter");
+const cartRouter = require("./routers/cartRouter");
 const usersRouter = require("./routers/usersRouter");
 
 const app = express();
@@ -13,9 +15,11 @@ app.use(cors({
   credentials: true
 }));
 
+
 app.use("/products", productsRouter);
 app.use("/categories", categoriesRouter);
-app.use('users/:userId', usersRouter)
+app.use('users/:userId', usersRouter);
+app.use('/cart', cartRouter)
 
 app.listen(5000)
 
