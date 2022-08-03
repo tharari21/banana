@@ -110,7 +110,6 @@ const AuthForm = ({type}) => {
                 type="submit"
                 value={name}
               />
-                
             </form>
             <span
               style={{ display: "flex", gap: "10px", alignItems: "center" }}

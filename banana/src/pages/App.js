@@ -7,45 +7,58 @@ import Sidebar from '../components/Sidebar'
 import ProductContainer from '../components/ProductContainer'
 import Cart from "./Cart";
 import SelectedProductPage from "../components/SelectedProductPage";
+import SearchPage from "./SearchPage";
 
 export const UserContext = createContext();
 
 function App() {
-  console.log('access token',localStorage.getItem('access_token'))
   const [user, setUser] = useState({})
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
   const [selectedProduct, setSelectedProduct]= useState({})
+  // useEffect(() => {
+
+  //   const getUser = async () => {
+  //     const req = await fetch("http://10.129.2.168:5000/auth/fetch-user", {
+  //       method: 'POST',
+  //       withCredentials: true,
+  //       headers: {
+  //         "Access-Control-Allow-Origin": "*",
+  //       },
+  //     });
+  //     const res = await req.json()
+  //     console.log('fetch user response', res)
+  //     setUser(res)
+  //   }
+  //   getUser()
+  // }, [])
+  console.log('user', user)
+  console.log('selected product',selectedProduct)
   return (
     <Router>
-        <UserContext.Provider value={value}>
       <div className="App">
+        <UserContext.Provider value={value}>
           <Sidebar />
-        
+        </UserContext.Provider>
         <Switch>
          
           <Route exact key={1} path={`/products/1`}>
             <SelectedProductPage />
           </Route>
-          <Route exact path='/login'>
+          <Route exact key={2} path='/login'>
             <Sidebar />
             <AuthForm type="login" />
           </Route>
-          <Route exact path='/signup'>
+          <Route exact key={3} path='/signup'>
             <Sidebar />
             <AuthForm type="signup" />
             
           </Route>
-          <Route path="/">
+          <Route path="/" >
             <Home />
             <ProductContainer setSelectedProduct={setSelectedProduct} />
           </Route>
-           <Route key={3} exact path='/cart'>
-            <Cart/>
-          </Route>
-          
         </Switch>
       </div>
-      </UserContext.Provider>
     </Router>
   );
   }
