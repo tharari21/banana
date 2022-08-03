@@ -1,11 +1,11 @@
 import { useState, useContext } from "react";
 import {UserContext} from '../pages/App'
-
+import {NavLink} from 'react-router-dom'
 const initialData = {
   email: "",
   password: ""
 }
-const LogInComponent = ({setIsLogIn}) => {
+const AuthForm = ({type}) => {
   const {user,setUser} = useContext(UserContext)
   const [formData, setFormData] = useState(initialData)
   const handleInput = (e) => {
@@ -17,19 +17,33 @@ const LogInComponent = ({setIsLogIn}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (type === 'signup') {
+        const req = await fetch('http://10.129.2.168:4000/signup', {
+          method: 'POST',
+          headers: {
+            "Content-Type": 'application/json'
+          },
+          body: JSON.stringify(formData)
+        })
+        const res = await req.json()
+        localStorage.setItem('access_token', res.accessToken)
+        setUser(res)
+    } else {
+        const req = await fetch('http://10.129.2.168:4000/login', {
+          method: 'POST',
+          headers: {
+            "Content-Type": 'application/json'
+          },
+          body: JSON.stringify(formData)
+        })
+        const res = await req.json()
+        localStorage.setItem('access_token', res.accessToken)
+        setUser(res)
+    }
     setFormData(initialData);
-    const req = await fetch('http://10.129.2.168:4000/login', {
-      method: 'POST',
-      headers: {
-        "Content-Type": 'application/json'
-      },
-      body: JSON.stringify(formData)
-    })
-    const res = await req.json()
-    localStorage.setItem('access_token', res.accessToken)
-    setUser(res)
 
   }
+  const name = (type === 'login') ? "LOGIN" : "SIGN UP"
     return (
       <div style={{ position: "fixed", top: "25%", left: "45%" }}>
         <div
@@ -43,13 +57,13 @@ const LogInComponent = ({setIsLogIn}) => {
             alignItems: "center",
             postion: "relative",
             borderRadius: "10px",
-            backgroundColor: "black",
-            color: "rgb(252, 225, 128)",
+            backgroundColor: "rgb(252, 225, 150)",
+            color: "black",
             textShadow: "2px 2px rgba(0, 0, 0, 0.263)",
           }}
         >
           <header style={{ textAlign: "center" }}>
-              <h4 style={{ fontSize: "4rem", margin: "0" }}>LOGIN</h4>
+              <h4 style={{ fontSize: "4rem", margin: "0" }}>{name}</h4>
               <h3 style={{ fontSize: "2rem" }}>Welcome to Banana</h3>
           </header>
 
@@ -82,35 +96,37 @@ const LogInComponent = ({setIsLogIn}) => {
                 }}
                 onChange={handleInput}
               />
-              <button
+              <input
                 style={{
                   height: "35px",
                   width: "250px",
                   borderRadius: "5px",
                   border: "1px solid rgba(0, 0, 0, 0.263)",
-                  backgroundColor: "transparent",
+                  backgroundColor: "black",
                   fontWeight: "bold",
+                  color: 'white'
+                  
                 }}
-              >
-                SIGN UP
-              </button>
+                type="submit"
+                value={name}
+              />
+                
             </form>
             <span
               style={{ display: "flex", gap: "10px", alignItems: "center" }}
             >
-              <p style={{ fontSize: "1.5rem" }}>Need an account?</p>
-              <a
-                onClick={() => {
-                  setIsLogIn((prev) => !prev);
-                }}
-                style={{ fontSize: "1.5rem" }}
+                
+              <p style={{ fontSize: "1.5rem" }}>{type==='login' ? "Have an account?" : "Need an account?"}</p>
+              <NavLink
+                to={type==='login' ? "/signup" : "/login"}
+                style={({isActive}) => isActive ? { color: 'black', textDecoration: 'none',fontSize: "1.5rem" } : {color: 'black', textDecoration: 'none',fontSize: "1.5rem"}} 
               >
-                SIGN UP
-              </a>
+                {name}
+              </NavLink>
             </span>
         </div>
       </div>
     );
 }
 
-export default LogInComponent
+export default AuthForm

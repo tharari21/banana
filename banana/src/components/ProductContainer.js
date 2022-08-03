@@ -4,7 +4,6 @@ import ProductCard from './ProductCard'
 
 const ProductContainer = ({ setSelectedProduct }) => {
   const [products, setProducts] = useState([]);
-  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const getProducts = async () => {
@@ -13,8 +12,7 @@ const ProductContainer = ({ setSelectedProduct }) => {
             const res = await req.json();
             setProducts(res);
         } catch (err) {
-            console.log(err)
-            setErrors({errors: err})
+          console.log('error',err)
         }
     };
     getProducts();
@@ -41,11 +39,6 @@ const ProductContainer = ({ setSelectedProduct }) => {
         {products.length && (
             <div style={{ marginLeft: "20%", display: 'flex', flexWrap: 'wrap', gap: '2em'}}>
                 {products.map((product) => <ProductCard key={product.id} product={product} setSelectedProduct={setSelectedProduct}/>)}
-            </div>
-        )}
-        {errors.error && (
-            <div style={{marginLeft: '10em'}}>
-                {JSON.stringify(errors)}
             </div>
         )}
       </div>

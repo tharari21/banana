@@ -23,10 +23,10 @@ const authenticateToken = (req, res, next) => {
 
 router.get('/',  async (req, res) => {
     // return all products
-
     try {
         const productsQuery = await pool.query('SELECT * FROM products');
         if (productsQuery.rowCount > 0) {
+          console.log(productsQuery.rows)
           res.json( productsQuery.rows );
         } else {
           res.json({message: "No Products"});

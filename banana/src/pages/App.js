@@ -1,8 +1,7 @@
 
 import { createContext, useState, useEffect, useMemo } from "react";
 import { BrowserRouter as Router, Route, NavLink, Switch, Link } from "react-router-dom";
-import LogInForm from '../components/LogInForm'
-import SignUpForm from '../components/SignUpForm'
+import AuthForm from '../components/AuthForm'
 import Home from '../pages/Home'
 import Sidebar from '../components/Sidebar'
 import ProductContainer from '../components/ProductContainer'
@@ -29,11 +28,12 @@ function App() {
           </Route>
           <Route exact path='/login'>
             <Sidebar />
-            <LogInForm />
+            <AuthForm type="login" />
           </Route>
           <Route exact path='/signup'>
-          <Sidebar />
-            <SignUpForm />
+            <Sidebar />
+            <AuthForm type="signup" />
+            
           </Route>
           <Route path="/">
             <Home />

@@ -28,20 +28,24 @@ const Home = () => {
           <span>
             <button
               style={{
-                backgroundColor: "transparent",
-                border: "none",
-                textDecoration: "underline",
-                fontSize: '1.3em'
+                backgroundColor: "rgb(252, 225, 150)",
+                width: '200px',
+                height: '50px',
+                borderRadius: "14px",
+                fontSize: '1.5em',
+                margin: '0 .5em'
               }}
             >
               Become a seller
             </button>
             <button
               style={{
-                backgroundColor: "transparent",
-                border: "none",
-                textDecoration: "underline",
-                fontSize: '1.3em'
+                backgroundColor: "rgb(252, 225, 150)",
+                width: '200px',
+                height: '50px',
+                borderRadius: "14px",
+                fontSize: '1.5em',
+                margin: '0 .5em'
               }}
             >
               learn more

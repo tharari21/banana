@@ -8,10 +8,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 const generateAccessToken = (user) => {
-  return [
-    jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "30m" }),
-    jwt.sign(user, process.env.REFRESH_TOKEN_SECRET),
-  ];
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "24h" })
 };
 
 
@@ -47,9 +44,9 @@ app.post("/login", async (req, res) => {
         email,
         id: potentialLogin.rows[0].id,
       };
-      const [accessToken, refreshToken] = generateAccessToken(user);
+      const accessToken = generateAccessToken(user);
 
-      res.json({ user, accessToken, refreshToken });
+      res.json({ user, accessToken });
     } else {
       res.json({ message: "not logged in" });
     }
@@ -74,9 +71,9 @@ app.post("/signup", async (req, res) => {
       email,
       id: newUserQuery.rows[0].id,
     };
-    const [accessToken, refreshToken] = generateAccessToken(user);
+    const accessToken = generateAccessToken(user);
 
-    res.json({ user, accessToken, refreshToken });
+    res.json({ user, accessToken });
   } else {
     res.json({ message: "An account with that email already exists" });
   }

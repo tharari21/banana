@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const productsRouter = require('./routers/productsRouter')
 const categoriesRouter = require("./routers/categoriesRouter");
+const usersRouter = require("./routers/usersRouter");
 
 const app = express();
 app.use(express.json());
@@ -14,7 +15,7 @@ app.use(cors({
 
 app.use("/products", productsRouter);
 app.use("/categories", categoriesRouter);
-
+app.use('users/:userId', usersRouter)
 
 app.listen(5000)
 
