@@ -8,6 +8,7 @@ import Sidebar from '../components/Sidebar'
 import ProductContainer from '../components/ProductContainer'
 import Cart from "./Cart";
 import SelectedProductPage from "../components/SelectedProductPage";
+import SearchPage from "./SearchPage";
 
 export const UserContext = createContext();
 
@@ -56,6 +57,9 @@ function App() {
           </Route>
            <Route key={4} exact path='/cart'>
             <Cart/>
+          </Route>
+          <Route key={5} exact path='/search'>
+            <SearchPage/>
           </Route>
           <Route path="/">
             <Home />

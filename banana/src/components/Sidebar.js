@@ -59,7 +59,7 @@ const Sidebar = () => {
     const bottomLink2 = {position: 'absolute', bottom: '90px'}
     const openedSidebarList = (
       <ul style={openedListStyle}>
-        <NavLink style={listItem} to="/">
+        <NavLink style={listItem} to="/search">
           <ion-icon name="search-outline"></ion-icon>{" "}
           <span style={sidebarNavItemText}>SEARCH</span>
         </NavLink>
