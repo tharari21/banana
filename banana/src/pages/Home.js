@@ -21,9 +21,7 @@ const Home = () => {
           }}
         >
           <p style={{fontSize: '2em'}}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis id
-            fugiat, pariatur et saepe voluptates numquam. Voluptates ipsa enim
-            a.
+            Join our community of buyers and sellers to purchase from a a company that cares about their footprint on earth.  At Banana we believe in treating our team members as well as our customers.
           </p>
           <span>
             <button
@@ -48,7 +46,7 @@ const Home = () => {
                 margin: '0 .5em'
               }}
             >
-              learn more
+              Our mission
             </button>
           </span>
         </div>
