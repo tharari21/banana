@@ -44,26 +44,23 @@ function App() {
           <Route exact key={1} path={`/products/1`}>
             <SelectedProductPage />
           </Route>
-          <Route exact path='/login'>
-            <UserContext.Provider value={value}>
-          <Sidebar />
+          <Route exact key={2} path='/login'>
+             <UserContext.Provider value={value}>
             <LogInForm />
         </UserContext.Provider>
           </Route>
-          <Route exact path='/signup'>
+          <Route exact key={3} path='/signup'>
             <UserContext.Provider value={value}>
-          <Sidebar />
             <SignUpForm />
-        </UserContext.Provider>
+            </UserContext.Provider>
+          </Route>
+           <Route key={4} exact path='/cart'>
+            <Cart/>
           </Route>
           <Route path="/">
             <Home />
             <ProductContainer setSelectedProduct={setSelectedProduct} />
           </Route>
-           <Route key={3} exact path='/cart'>
-            <Cart/>
-          </Route>
-          
         </Switch>
       </div>
     </Router>

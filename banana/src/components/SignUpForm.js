@@ -82,7 +82,7 @@ console.log(user)
                   width: "250px",
                   borderRadius: "5px",
                   border: "1px solid rgba(0, 0, 0, 0.263)",
-                  backgroundColor: "transparent",
+                  backgroundColor: "white",
                   fontWeight: "bold",
                 }}
               >
@@ -92,11 +92,11 @@ console.log(user)
             <span
               style={{ display: "flex", gap: "10px", alignItems: "center" }}
             >
-              <p style={{ fontSize: "1.5rem" }}>Need an account?</p>
+              <p style={{ fontSize: "1.5rem" }}>Already have an account?</p>
               <a
                 style={{ fontSize: "1.5rem" }}
               >
-                SIGN UP
+                LOGIN
               </a>
             </span>
         </div>

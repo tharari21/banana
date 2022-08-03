@@ -87,11 +87,11 @@ const LogInComponent = ({setIsLogIn}) => {
                   width: "250px",
                   borderRadius: "5px",
                   border: "1px solid rgba(0, 0, 0, 0.263)",
-                  backgroundColor: "transparent",
+                    backgroundColor: "white",
                   fontWeight: "bold",
                 }}
               >
-                SIGN UP
+                LOGIN
               </button>
             </form>
             <span
