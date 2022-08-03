@@ -38,26 +38,30 @@ function App() {
       <div className="App">
         <UserContext.Provider value={value}>
           <Sidebar />
-        </UserContext.Provider>
+        
         <Switch>
          
           <Route exact key={1} path={`/products/1`}>
             <SelectedProductPage />
           </Route>
           <Route exact key={2} path='/login'>
-            <Sidebar />
             <AuthForm type="login" />
           </Route>
           <Route exact key={3} path='/signup'>
-            <Sidebar />
             <AuthForm type="signup" />
-            
+          </Route>
+          <Route exact key={4} path='/cart'>
+            <Cart />
+          </Route>
+          <Route exact key={5} path='/search'>
+            <SearchPage />
           </Route>
           <Route path="/" >
             <Home />
             <ProductContainer setSelectedProduct={setSelectedProduct} />
           </Route>
         </Switch>
+        </UserContext.Provider>
       </div>
     </Router>
   );
