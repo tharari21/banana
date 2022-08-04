@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, NavLink, Switch, Link, useHistory } from "react-router-dom";
-const SearchItem = ({product}) => {
+const SearchItem = ({product, setSelectedProduct}) => {
     const [images,setImages]= useState([])
      useEffect(() => {
       const getImages = async () => {
