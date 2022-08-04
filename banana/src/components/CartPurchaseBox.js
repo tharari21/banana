@@ -1,8 +1,52 @@
-import React from 'react'
+import {useEffect, useState, useContext} from 'react'
+import { UserContext } from '../pages/App'
 
 const CartPurchaseBox = () => {
+  const {user} = useContext(UserContext)
+  const [isWindowSmall, setIsWindowSmall] = useState(false)
+  useEffect(() => {
+      const handleResize = () => {
+        if (window.innerWidth < 1530) {
+          console.log('window small')
+          setIsWindowSmall(true)
+        } else {
+          setIsWindowSmall(false);
+        }
+        
+      }
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize)
+      }
+    }, [])
+
+    const onCheckout = async () => {
+      const cartReq = await fetch(`http://10.129.2.168:5000/cart?userId=${user.user.id}`)
+      const cartRes = await cartReq.json()
+      console.log('cart', cartRes)
+      const lineItems = cartRes.map(cartItem => {
+        return {price: cartItem.product.stripe_id, quantity: cartItem.quantity}
+      })
+
+      const req = await fetch('http://10.129.2.168:5000/checkout/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          "Content-Type": 'application/json',
+        },
+        body: JSON.stringify({lineItems: lineItems})
+      })
+      const res = await req.json();
+      if (res.redirect_url) {
+        window.location.href = res.redirect_url
+      }
+      console.log(res)
+
+    }
+
+    const bigWindowPurchaseBox = {margin: '0 0 0 12em',boxShadow: '5px 5px 5px 5px rgba(0,0,0,0.1)', height: '300px', width: '300px', display: 'flex', justifyContent: 'center', borderRadius: '5px', flexDirection:'column', padding: '30px', position: 'fixed', top: '4em', right: '2em'}
+    const smallWindowPurchaseBox = {...bigWindowPurchaseBox, position: 'static', bottom: '0',left: '1%'}
   return (
-    <div style={{margin: '0 0 0 12em',boxShadow: '5px 5px 5px 5px rgba(0,0,0,0.1)', height: '300px', width: '300px', display: 'flex', justifyContent: 'center', borderRadius: '5px', flexDirection:'column', padding: '30px', position: 'fixed', right: '2em'}}>
+    <div style={isWindowSmall ? smallWindowPurchaseBox : bigWindowPurchaseBox}>
         <p style={{fontSize: '1.4rem'}}>How you'll pay</p>
         <div>
             <img style={{width: '50px'}} src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Visa.svg/1200px-Visa.svg.png" alt="" />
@@ -11,7 +55,9 @@ const CartPurchaseBox = () => {
             <img style={{width: '50px'}} src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/1200px-American_Express_logo_%282018%29.svg.png" alt="" />
         </div>
         <span style={{display: 'flex', alignItems: 'center'}}><p style={{fontSize: '1.4rem', marginRight:'auto'}}>Item(s) Total:</p><p style={{fontSize: '1.4rem'}}>{'total'}</p></span>
-        <button style={{height: '35px', borderRadius: '5px', border: 'none', backgroundColor:'#00a8ff', color: 'white', fontWeight: 'bold'}}>Proceed to checkout</button>
+        <button onClick={onCheckout} style={{height: '35px', borderRadius: '5px', border: 'none', backgroundColor:'#00a8ff', color: 'white', fontWeight: 'bold'}} type="submit">
+          Proceed to checkout
+        </button>
     </div>
   )
 }

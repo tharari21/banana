@@ -23,6 +23,7 @@ const ProductCard = ({ product}) => {
             display: "flex",
             flexDirection: "column",
             padding: "1em",
+            
             borderRadius: "10px",
             boxShadow: "3px 3px 3px 3px rgba(0, 0, 0, 0.21)",
             backgroundColor: "black",
@@ -31,7 +32,7 @@ const ProductCard = ({ product}) => {
           }}
         >
           <img
-            style={{ maxWidth: "22em" }}
+            style={{ maxWidth: "22em", height: '14em' }}
             src={
               images[0]?.url ||
               "https://media.istockphoto.com/photos/chimpanzee-picture-id170615395?k=20&m=170615395&s=612x612&w=0&h=CswkxjdPpmDOF7FLJ64nuaYrQzsreIS2Ph9KV4ln15g="
