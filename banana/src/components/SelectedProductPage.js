@@ -17,6 +17,16 @@ useEffect(()=> {
 
   getProduct()
 },[])
+
+const handleAddToCart = () => {
+//  fetch('http://10.129.2.168:5000/cart', {
+//   method: 'POST',
+//   headers: {
+//     "Content-Type": "application/json"
+//   },
+//   body: JSON.stringify(product)
+//  }) 
+}
 return (
    <div
      style={{
@@ -105,7 +115,7 @@ return (
          </div>
          <div style={{display:'flex', flexDirection: 'column'}}>
            <button >Add to cart</button>
-           <button >Buy now</button>
+           <button onClick={handleAddToCart} >Buy now</button>
          </div>
        </div>
      </div>
