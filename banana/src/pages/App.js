@@ -52,7 +52,7 @@ function App() {
             <Cart />
           </Route>
           <Route key={5} exact path='/products'>
-            <SearchPage />
+            <SearchPage setSelectedProduct={setSelectedProduct}/>
           </Route>
           <Route path="/" >
             <Home />

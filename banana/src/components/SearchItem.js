@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, NavLink, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, NavLink, Switch, Link, useHistory } from "react-router-dom";
 const SearchItem = ({product}) => {
     const [images,setImages]= useState([])
      useEffect(() => {
@@ -10,8 +10,14 @@ const SearchItem = ({product}) => {
       }
       getImages()
   }, [])
+
+   let history = useHistory();
+  const  handleClick = ()=>  {
+    history.push(`/products:id=${product.id}`);
+    setSelectedProduct(product)
+  }
     return (
-        <NavLink to={`/products/${product.id}`} style={{color: 'black', border: '1px solid rgba(0,0,0,0.1)',borderRadius:'5px', display: 'flex', width: '70%', height: '200px'}}>
+        <div onClick={handleClick} style={{color: 'black', border: '1px solid rgba(0,0,0,0.1)',borderRadius:'5px', display: 'flex', width: '70%', height: '200px'}}>
             <img style={{width: '250px'}} src={images[0]?.url} alt="" />
             <div style={{marginLeft: '20px'}}>
                 <h3 style={{fontSize: '2rem'}}>{product.name}</h3>
@@ -21,7 +27,7 @@ const SearchItem = ({product}) => {
                 <p style={{fontSize: '2rem'}}>{product.price}</p>
                 </span>
             </div>
-        </NavLink>
+        </div>
     )
 }
 export default SearchItem

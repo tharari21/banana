@@ -2,7 +2,7 @@ import SearchItem from "../components/SearchItem"
 import {useEffect, useState} from 'react'
 import { BrowserRouter as Router, Route, NavLink, Switch, Link,useHistory } from "react-router-dom";
 import SelectedProductPage from "../components/SelectedProductPage";
-const SearchPage = () => {
+const SearchPage = ({setSelectedProduct}) => {
 
 //useEffect to get products and to get catagories
 //products map return SearchItem
@@ -40,14 +40,14 @@ const [filterBySearch, setfilterBySearch]=useState('')
 const renderConditional  = ()=> {
 if(filterByCategory){
     // let sortedByCategory = products.filter(product => product.category.toLowerCase().includes(filterByCategory.toLowerCase()))
-    // return sortedByCategory.map(product=> <SearchItem product={product} key={product.id}/>)
+    // return sortedByCategory.map(product=> <SearchItem product={product} key={product.id} setSelectedProduct={setSelectedProduct}/>)
 }else if (filterByCategory && filterBySearch){
     // let sortedByCategory = products.filter(product => product.category.toLowerCase().includes(filterByCategory.toLowerCase()))
     // let sortedBySearch = sortedByCategory.filter(product => product.name.toLowerCase().includes(filterBySearch.toLowerCase()))
-    // return sortedBySearch.map(product=> <SearchItem product={product} key={product.id}/>)
+    // return sortedBySearch.map(product=> <SearchItem product={product} key={product.id} setSelectedProduct={setSelectedProduct}/>)
 }else if (filterBySearch){
     // let sortedBySearch = products.filter(product => product.name.toLowerCase().includes(filterBySearch.toLowerCase()))
-    // return sortedBySearch.map(product=> <SearchItem product={product} key={product.id}/>)
+    // return sortedBySearch.map(product=> <SearchItem product={product} key={product.id} setSelectedProduct={setSelectedProduct}/>)
 }else {
     return products.map(product => {return <SearchItem product={product} key={product.id}/>})
 }
