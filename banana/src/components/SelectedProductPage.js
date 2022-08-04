@@ -1,6 +1,33 @@
-const SelectedProductPage = () => {
+import { useEffect, useState } from "react";
+const SelectedProductPage = ({selectedProduct}) => {
+let location = window.location.pathname
+// const paragraph = 'http://localhost:3000/products:id=31';
+const regex = /=(.*)/g;
+const found = location.match(regex);
+let test = found[0].split('')
+let pathId =test[1]+ test[2]
+console.log(pathId)
+const [product, setProduct]= useState({})
+useEffect(()=> {
+  const getProduct = async() => {
+      let req = await fetch(`http://10.129.2.168:5000/products/${pathId}`)
+      let res = await req.json()
+      setProduct(res)
+  }
 
- return (
+  getProduct()
+},[])
+
+const handleAddToCart = () => {
+//  fetch('http://10.129.2.168:5000/cart', {
+//   method: 'POST',
+//   headers: {
+//     "Content-Type": "application/json"
+//   },
+//   body: JSON.stringify(product)
+//  }) 
+}
+return (
    <div
      style={{
        marginLeft: "20%",
@@ -10,8 +37,8 @@ const SelectedProductPage = () => {
        color: "black",
      }}
    >
-     <h2 style={{ fontSize: "3rem" }}>Name of Product</h2>
-     <span>* 4.91 Number of reviews</span>
+     <h2 style={{ fontSize: "3rem" }}>{product.name}</h2>
+     <span>{product.rating}</span>
      <div
        id="SelectedProductImageContainer"
        style={{
@@ -70,13 +97,7 @@ const SelectedProductPage = () => {
      >
        <div id="description-text-area" style={{ marginRight: "auto" }}>
          <p style={{ maxWidth: "500px" }}>
-           Lorem ipsum dolor sit amet consectetur adipisicing elit. Error vitae
-           placeat suscipit? Beatae, porro aspernatur? Est quos dolor cupiditate
-           deleniti eaque. Adipisci eaque alias consectetur ab nostrum libero
-           error ad? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-           Error vitae placeat suscipit? Beatae, porro aspernatur? Est quos
-           dolor cupiditate deleniti eaque. Adipisci eaque alias consectetur ab
-           nostrum libero error ad?
+          {product.description}
          </p>
        </div>
        <div
@@ -89,12 +110,12 @@ const SelectedProductPage = () => {
          }}
        >
          <div style={{ display: "flex", alignItems: "center" }}>
-           <h2 style={{ marginRight: "auto", marginLeft: "5%" }}>$1000</h2>
-           <p style={{ marginRight: "5%" }}>****</p>
+           <h2 style={{ marginRight: "auto", marginLeft: "5%" }}>${product.price}</h2>
+           <p style={{ marginRight: "5%" }}>{product.rating}</p>
          </div>
          <div style={{display:'flex', flexDirection: 'column'}}>
            <button >Add to cart</button>
-           <button>Buy now</button>
+           <button onClick={handleAddToCart} >Buy now</button>
          </div>
        </div>
      </div>
