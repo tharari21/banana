@@ -31,7 +31,7 @@ const AuthForm = ({type}) => {
         localStorage.setItem('session', JSON.stringify(res))
         setUser(res)
     } else {
-        const req = await fetch('http://10.129.2.168:4000/login', {
+        const req = await fetch('http://localhost:4000/login', {
           method: 'POST',
           headers: {
             "Content-Type": 'application/json'
