@@ -34,20 +34,26 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     // Create new item in cart
-    const {name, description, sellerId, categoryId, rating, price} = req.body;
+      const {userId} = req.query
+      const {productId} = req.body;
+    
+    
+
     try {
         const newCartQuery = await pool.query(
-          "INSERT INTO cart (name, description, seller_id, catagory_id, rating, price) VALUES($1, $2, (SELECT id FROM users WHERE id=$3), (SELECT id FROM catagories WHERE id=$4), $5,$6) RETURNING id, name, description, seller_id, catagory_id, rating, price",
-          [name, description, sellerId, categoryId, rating, price]
+          "INSERT INTO cart (user_id, product_id, quantity) VALUES($1, $2, $3)",
+          [userId, productId, 1]
         );
+        console.log(newCartQuery.rows)
         if (newCartQuery.rowCount ===1){
+            console.log('ITWORKED')
             res.json({ product: newCartQuery.rows[0] })
         }else {
             res.json({message: 'failed to post product to cart'})
         }
             
         } catch (err) {
-            res.json({ message: JSON.stringify(err)})
+            res.json(err)
         }
     })
 
