@@ -1,14 +1,7 @@
 import SearchItem from "../components/SearchItem"
 import {useEffect, useState} from 'react'
-import { BrowserRouter as Router, Route, NavLink, Switch, Link,useHistory } from "react-router-dom";
-import SelectedProductPage from "../components/SelectedProductPage";
 import ProductCard from "../components/ProductCard";
 const SearchPage = () => {
-
-//useEffect to get products and to get catagories
-//products map return SearchItem
-//search item will takes props 
-//catagories map return option
 const [products, setProducts]=useState([])
 const [categories, setcategories]=useState([])
 const [filterByCategory, setfilterByCategory]=useState('')
