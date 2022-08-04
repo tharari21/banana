@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { UserContext } from "../pages/App";
 const SelectedProductPage = ({selectedProduct}) => {
+  const {user, setUser } =useContext(UserContext)
 let location = window.location.pathname
-// const paragraph = 'http://localhost:3000/products:id=31';
 const regex = /=(.*)/g;
 const found = location.match(regex);
 let test = found[0].split('')
 let pathId =test[1]+ test[2]
-console.log(pathId)
 const [product, setProduct]= useState({})
 useEffect(()=> {
   const getProduct = async() => {
@@ -18,14 +18,19 @@ useEffect(()=> {
   getProduct()
 },[])
 
-const handleAddToCart = () => {
-//  fetch('http://10.129.2.168:5000/cart', {
-//   method: 'POST',
-//   headers: {
-//     "Content-Type": "application/json"
-//   },
-//   body: JSON.stringify(product)
-//  }) 
+const handleAddToCart = async() => {
+  console.log('adding ')
+console.log(user.user.id)
+  let req = await fetch(`http://10.129.2.168:5000/cart?userId=${user.user.id}`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({productId: product.id})
+  }) 
+  console.log('aded ')
+  let res = await req.json()
+  console.log(res)
 }
 return (
    <div
@@ -114,8 +119,8 @@ return (
            <p style={{ marginRight: "5%" }}>{product.rating}</p>
          </div>
          <div style={{display:'flex', flexDirection: 'column'}}>
-           <button >Add to cart</button>
-           <button onClick={handleAddToCart} >Buy now</button>
+           <button onClick={handleAddToCart} >Add to cart</button>
+           <button  >Buy now</button>
          </div>
        </div>
      </div>
