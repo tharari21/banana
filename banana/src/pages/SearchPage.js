@@ -38,16 +38,16 @@ const [filterBySearch, setfilterBySearch]=useState('')
  
 
 const renderConditional  = ()=> {
-if(filterByCategory){
-    // let sortedByCategory = products.filter(product => product.category.toLowerCase().includes(filterByCategory.toLowerCase()))
-    // return sortedByCategory.map(product=> <SearchItem product={product} key={product.id} setSelectedProduct={setSelectedProduct}/>)
-}else if (filterByCategory && filterBySearch){
-    // let sortedByCategory = products.filter(product => product.category.toLowerCase().includes(filterByCategory.toLowerCase()))
-    // let sortedBySearch = sortedByCategory.filter(product => product.name.toLowerCase().includes(filterBySearch.toLowerCase()))
-    // return sortedBySearch.map(product=> <SearchItem product={product} key={product.id} setSelectedProduct={setSelectedProduct}/>)
+if(filterByCategory && filterBySearch){
+     let sortedByCategory = products.filter(product => product.catagory_id == parseInt(filterByCategory))
+    let sortedBySearch = sortedByCategory.filter(product => product.name.toLowerCase().includes(filterBySearch.toLowerCase()))
+    return sortedBySearch.map(product=> <SearchItem product={product} key={product.id} setSelectedProduct={setSelectedProduct}/>)
+}else if (filterByCategory ){ 
+    let sortedByCategory = products.filter(product => product.catagory_id == parseInt(filterByCategory))
+    return sortedByCategory.map(product=> <SearchItem product={product} key={product.id} setSelectedProduct={setSelectedProduct}/>)
 }else if (filterBySearch){
-    // let sortedBySearch = products.filter(product => product.name.toLowerCase().includes(filterBySearch.toLowerCase()))
-    // return sortedBySearch.map(product=> <SearchItem product={product} key={product.id} setSelectedProduct={setSelectedProduct}/>)
+    let sortedBySearch = products.filter(product => product.name.toLowerCase().includes(filterBySearch.toLowerCase()))
+    return sortedBySearch.map(product=> <SearchItem product={product} key={product.id} setSelectedProduct={setSelectedProduct}/>)
 }else {
     return products.map(product => {return <SearchItem product={product} key={product.id}/>})
 }
@@ -63,14 +63,12 @@ setfilterByCategory(e.target.value)
 const handleSearch = (e) => {
 setfilterBySearch(e.target.value)
 }
-console.log(filterBySearch)
-console.log(filterByCategory)
     return (
 <div style={{marginLeft: '10%'}}>
     <nav style={{display: 'flex', justifyContent: 'center', marginTop: '5rem'}}>
         <select name="catagory-filter" id="" onChange={handleChange} style={{height: '34px', width: '100px', border:'1px solid rgba(0,0,0, 0.1)',borderRight: 'none', borderTopLeftRadius: '5px',borderBottomLeftRadius: '5px'}}>
         <option value="" disabled >--Choose an option---</option>
-        {/* {categories.map(category => {return <option name={category.name} key={category.id}>{category.name}</option>})} */}
+        {categories.map(category => {return <option name={category.name} key={category.id} value={category.id}>{category.name}</option>})}
         </select>
         <input type="text" style={{height: '30px', width: '600px', border:'1px solid rgba(0,0,0, 0.1)',borderRight: 'none'}} onChange={handleSearch}/>
         <button style={{backgroundColor: 'rgb(252, 225, 128)', margin: '0', border:'1px solid rgba(0,0,0, 0.1)',borderLeft: 'none', borderTopRightRadius: '5px',borderBottomRightRadius: '5px'}}><ion-icon name="search-outline"></ion-icon></button>
