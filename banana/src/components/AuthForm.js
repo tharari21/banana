@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import {UserContext} from '../pages/App'
-import {NavLink} from 'react-router-dom'
+import {NavLink, Redirect} from 'react-router-dom'
 const initialData = {
   email: "",
   password: ""
@@ -42,6 +42,7 @@ const AuthForm = ({type}) => {
         if (res.user) {
             localStorage.setItem('session', JSON.stringify(res))
             setUser(res)
+
         } else {
             setFormErrors(res)
         }
@@ -52,6 +53,7 @@ const AuthForm = ({type}) => {
   const name = (type === 'login') ? "LOGIN" : "SIGN UP"
     return (
       <div style={{ position: "fixed", top: "25%", left: "45%" }}>
+        {user && <Redirect to="/"/>}
         <div
           style={{
             border: "1px solid rgba(0, 0, 0, 0.263)",

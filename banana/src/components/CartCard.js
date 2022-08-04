@@ -23,7 +23,8 @@ return (
             <span style={priceStyle}>
                 <h1>$ {product.price}</h1>
             </span>
-            <p>{product.description}</p>
+            <h1>{product.name}</h1>
+            <h1>{product.description}</h1>
         </div>
 
     </div>

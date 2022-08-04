@@ -75,19 +75,9 @@ console.log(filterByCategory)
         <input type="text" style={{height: '30px', width: '600px', border:'1px solid rgba(0,0,0, 0.1)',borderRight: 'none'}} onChange={handleSearch}/>
         <button style={{backgroundColor: 'rgb(252, 225, 128)', margin: '0', border:'1px solid rgba(0,0,0, 0.1)',borderLeft: 'none', borderTopRightRadius: '5px',borderBottomRightRadius: '5px'}}><ion-icon name="search-outline"></ion-icon></button>
     </nav>
-    <Router>
-        <Switch>
-            <Route key={1} exact path='/products'>
-                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', marginTop: '2%'}}>
-                    {searchOutput}
-                </div>
-            </Route>
-            <Route key={2} exact path='/products/30'>
-                <SelectedProductPage/>
-            </Route>
-            
-    </Switch>
-    </Router>
+    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', marginTop: '2%'}}>
+        {searchOutput}
+    </div>
 </div>
     )
 }

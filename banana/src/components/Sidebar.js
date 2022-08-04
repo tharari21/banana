@@ -63,6 +63,9 @@ const Sidebar = () => {
     const bottomLink2 = {position: 'absolute', bottom: '90px'}
     const openedSidebarList = (
       <ul style={openedListStyle}>
+        <div style={listItem}>
+           {user?.user.email}
+        </div>
         <NavLink style={listItem} to="/products">
           <ion-icon name="pricetags-outline"></ion-icon>{" "}
           <span style={sidebarNavItemText}>PRODUCTS</span>
