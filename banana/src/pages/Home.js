@@ -21,7 +21,7 @@ const Home = () => {
           }}
         >
           <p style={{fontSize: '2em'}}>
-            Join our community of buyers and sellers to purchase from a a company that cares about their footprint on earth.  At Banana we believe in treating our team members as well as our customers.
+            Join our community of buyers and sellers that go bananas for good deals.  At Banana we believe in treating our team members as well as our customers.
           </p>
           <span>
             <button

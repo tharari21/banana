@@ -105,7 +105,7 @@ return (
          </div>
          <div style={{display:'flex', flexDirection: 'column'}}>
            <button >Add to cart</button>
-           <button>Buy now</button>
+           <button >Buy now</button>
          </div>
        </div>
      </div>
