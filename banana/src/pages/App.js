@@ -39,9 +39,6 @@ function App() {
         
         <Switch>
           
-          <Route exact key={1} path={`/products:id=${selectedProduct.id}`}>
-            <SelectedProductPage selectedProduct={selectedProduct}/>
-          </Route>
           <Route exact key={2} path='/login'>
             <AuthForm type="login" />
           </Route>
@@ -53,6 +50,9 @@ function App() {
           </Route>
           <Route key={5} exact path='/products'>
             <SearchPage setSelectedProduct={setSelectedProduct}/>
+          </Route>
+          <Route exact key={1} path={`/products/:id`}>
+            <SelectedProductPage selectedProduct={selectedProduct}/>
           </Route>
           <Route path="/" >
             <Home />

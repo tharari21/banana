@@ -3,7 +3,7 @@ const CartCard = ({product}) => {
     const [images, setImages] = useState(null)
     useEffect(() => {
         const getImages = async () => {
-            const req = await fetch(`http://localhost:5000/products/${product.id}/images`)
+            const req = await fetch(`http://10.129.2.168:5000/products/${product.id}/images`)
             const res = await req.json();
             console.log(res)
             setImages(res)
@@ -17,7 +17,7 @@ const CartCard = ({product}) => {
 return (
      <div style={cartItemStyle}>
         <div style={cartItemImageContainerStyle}>
-            <img src={images && images[0].url} alt="" style={{width: '200px'}} />
+            <img src={images && images[0]?.url} alt="" style={{width: '200px'}} />
         </div>
         <div style={cartItemContentContainerStyle}>
             <span style={priceStyle}>

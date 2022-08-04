@@ -7,7 +7,7 @@ const CartContainer = ({setNumItemsInCart}) => {
     const [cart, setCart] = useState(null)
     useEffect(() => {
         const getCart = async () => {
-            const req = await fetch(`http://localhost:5000/cart?userId=${user.user.id}`)
+            const req = await fetch(`http://10.129.2.168:5000/cart?userId=${user.user.id}`)
             const res = await req.json();
             setCart(res)
             setNumItemsInCart(res.length)
