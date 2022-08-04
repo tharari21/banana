@@ -26,7 +26,8 @@ const Cart = () => {
              <div style={{color: 'black', marginTop:'20%'}}>
              <h1>{numItemsInCart} item in your cart</h1>
             <CartPurchaseBox />
-            </div>              
+            </div>             
+            <h2>{numItemsInCart == 0? 'Please Log In to see your cart': ''}</h2> 
             <CartContainer setNumItemsInCart={setNumItemsInCart} />
         </div>
     )
