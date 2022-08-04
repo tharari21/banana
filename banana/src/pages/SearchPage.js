@@ -43,7 +43,7 @@ if(filterByCategory && filterBySearch){
     let sortedBySearch = products.filter(product => product.name.toLowerCase().includes(filterBySearch.toLowerCase()))
     return sortedBySearch.map(product=> <SearchItem product={product} key={product.id} />)
 }else {
-    return products.map(product => {return <ProductCard product={product} key={product.id} />})
+    return products.map(product => {return <SearchItem product={product} key={product.id} />})
 }
 }
 
