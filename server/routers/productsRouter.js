@@ -56,101 +56,116 @@ router.post('/', async (req, res) => {
             res.json({ message: JSON.stringify(err)})
         }
     })
-    router.patch('/:productId',async  (req, res) => {
-      // update req.params.id
-      const { name, description, sellerId, categoryId, rating, price } = req.body;
-      const responseObj = {};
-    
-      if (name) {
-        try {
-          
-          const updatedProductQuery = await pool.query(
-            "UPDATE products SET name=$1 WHERE id=$2",
-            [name, req.params.productId]
-          );
-          if (updatedProductQuery.rowCount === 1) {
-              responseObj.name = name
-              responseObj.isNameUpdated = true
-          }
-          else {
-              responseObj.isNameUpdated = false 
-          }
-        }catch(err){
-            responseObj.isNameUpdated = false 
-        }
-      }
-      if (description) {
-        try {
-          const updatedProductQuery = await pool.query(
-            "UPDATE products SET description=$1 WHERE id=$2",
-            [description, req.params.productId]
-          );
-          
-          if (updatedProductQuery.rowCount === 1) {
+router.patch('/:productId',async  (req, res) => {
+  // update req.params.id
+  const { name, description, sellerId, categoryId, rating, price } = req.body;
+  const responseObj = {};
 
-            responseObj.description = description;
-            responseObj.isDescriptionUpdated = true;
-        } else {
-            responseObj.isDescriptionUpdated = false;
-          }
-        } catch (err) {
-          responseObj.isDescriptionUpdated = false;
-        }
+  if (name) {
+    try {
+      
+      const updatedProductQuery = await pool.query(
+        "UPDATE products SET name=$1 WHERE id=$2",
+        [name, req.params.productId]
+      );
+      if (updatedProductQuery.rowCount === 1) {
+          responseObj.name = name
+          responseObj.isNameUpdated = true
       }
-      if (categoryId) {
-        try {
-          const updatedProductQuery = await pool.query(
-            "UPDATE products SET catagory_id=(SELECT id FROM catagories WHERE id=$1) WHERE id=$2",
-            [categoryId, req.params.productId]
-          );
-          if (updatedProductQuery.rowCount === 1) {
-            responseObj.categoryId = categoryId;
-            responseObj.isCategoryUpdated = true;
-        } else {
-            responseObj.isCategoryUpdated = false;
-            
-          }
-        } catch (err) {
-          responseObj.isCategoryUpdated = false;
-        }
+      else {
+          responseObj.isNameUpdated = false 
       }
-      if (rating) {
-        try {
-          const updatedProductQuery = await pool.query(
-            "UPDATE products SET rating=$1 WHERE id=$2",
-            [rating, req.params.productId]
-          );
-          if (updatedProductQuery.rowCount === 1) {
-            responseObj.rating = rating;
-            responseObj.isRatingUpdated = true;
-        } else {
-            responseObj.isRatingUpdated = false;
-            
-          }
-        } catch (err) {
-          responseObj.isRatingUpdated = false;
-        }
-      }
-      if (price) {
-        try {
-          const updatedProductQuery = await pool.query(
-            "UPDATE products SET price=$1 WHERE id=$2",
-            [price, req.params.productId]
-          );
-          if (updatedProductQuery.rowCount === 1) {
-            responseObj.price = price;
-            responseObj.isPriceUpdated = true;
-        } else {
-            responseObj.isPriceUpdated = false;
-            
-          }
-        } catch (err) {
-          responseObj.isPriceUpdated = false;
-        }
-      }
-      res.json(responseObj);
+    }catch(err){
+        responseObj.isNameUpdated = false 
+    }
+  }
+  if (description) {
+    try {
+      const updatedProductQuery = await pool.query(
+        "UPDATE products SET description=$1 WHERE id=$2",
+        [description, req.params.productId]
+      );
+      
+      if (updatedProductQuery.rowCount === 1) {
 
-    })
+        responseObj.description = description;
+        responseObj.isDescriptionUpdated = true;
+    } else {
+        responseObj.isDescriptionUpdated = false;
+      }
+    } catch (err) {
+      responseObj.isDescriptionUpdated = false;
+    }
+  }
+  if (categoryId) {
+    try {
+      const updatedProductQuery = await pool.query(
+        "UPDATE products SET catagory_id=(SELECT id FROM catagories WHERE id=$1) WHERE id=$2",
+        [categoryId, req.params.productId]
+      );
+      if (updatedProductQuery.rowCount === 1) {
+        responseObj.categoryId = categoryId;
+        responseObj.isCategoryUpdated = true;
+    } else {
+        responseObj.isCategoryUpdated = false;
+        
+      }
+    } catch (err) {
+      responseObj.isCategoryUpdated = false;
+    }
+  }
+  if (rating) {
+    try {
+      const updatedProductQuery = await pool.query(
+        "UPDATE products SET rating=$1 WHERE id=$2",
+        [rating, req.params.productId]
+      );
+      if (updatedProductQuery.rowCount === 1) {
+        responseObj.rating = rating;
+        responseObj.isRatingUpdated = true;
+    } else {
+        responseObj.isRatingUpdated = false;
+        
+      }
+    } catch (err) {
+      responseObj.isRatingUpdated = false;
+    }
+  }
+  if (price) {
+    try {
+      const updatedProductQuery = await pool.query(
+        "UPDATE products SET price=$1 WHERE id=$2",
+        [price, req.params.productId]
+      );
+      if (updatedProductQuery.rowCount === 1) {
+        responseObj.price = price;
+        responseObj.isPriceUpdated = true;
+    } else {
+        responseObj.isPriceUpdated = false;
+        
+      }
+    } catch (err) {
+      responseObj.isPriceUpdated = false;
+    }
+  }
+  res.json(responseObj);
+
+})
+router.get('/:id',  async (req, res) => {
+    // return one product
+    try {
+        const singleProductsQuery = await pool.query('SELECT * FROM products WHERE id=$1', [req.params.id]);
+        if (singleProductsQuery.rowCount > 0) {
+          console.log(singleProductsQuery.rows)
+          res.json( singleProductsQuery.rows[0] );
+        } else {
+          res.json({});
+        }
+    } catch (err) {
+        res.json({message: 'ERROR', error: err})
+    }
+})
+
 router.delete('/:productId', async (req, res) => {
     // delete req.params.id
     try {
