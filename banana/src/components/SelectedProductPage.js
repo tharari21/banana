@@ -1,17 +1,22 @@
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../pages/App";
-const SelectedProductPage = ({selectedProduct}) => {
+import {useParams} from 'react-router-dom'
+const SelectedProductPage = () => {
+  const params = useParams();
+
+  console.log(params.id)
   const {user, setUser } =useContext(UserContext)
 let location = window.location.pathname
-const regex = /=(.*)/g;
-const found = location.match(regex);
-let test = found[0].split('')
-let pathId =test[1]+ test[2]
+// const regex = /=(.*)/g;
+// const found = location.match(regex);
+// let test = found[0].split('')
+// let pathId =test[1]+ test[2]
 const [product, setProduct]= useState({})
 useEffect(()=> {
   const getProduct = async() => {
-      let req = await fetch(`http://10.129.2.168:5000/products/${pathId}`)
+      let req = await fetch(`http://10.129.2.168:5000/products/${params.id}`)
       let res = await req.json()
+      console.log('selected product 2', res)
       setProduct(res)
   }
 
@@ -19,7 +24,6 @@ useEffect(()=> {
 },[])
 
 const handleAddToCart = async() => {
-  console.log('adding ')
 console.log(user.user.id)
   let req = await fetch(`http://10.129.2.168:5000/cart?userId=${user.user.id}`, {
     method: 'POST',
@@ -28,7 +32,6 @@ console.log(user.user.id)
     },
     body: JSON.stringify({productId: product.id})
   }) 
-  console.log('aded ')
   let res = await req.json()
   console.log(res)
 }

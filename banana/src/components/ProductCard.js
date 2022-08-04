@@ -1,8 +1,7 @@
 import {useState, useEffect} from 'react'
 import { BrowserRouter as Router, Route, NavLink, Switch, Link,useHistory } from "react-router-dom";
-const ProductCard = ({ product, setSelectedProduct }) => {
+const ProductCard = ({ product}) => {
   const [images, setImages] = useState([]);
-  let navigate = useHistory();
   useEffect(() => {
       const getImages = async () => {
           const req = await fetch(`http://10.129.2.168:5000/products/${product.id}/images`);
@@ -15,14 +14,10 @@ const ProductCard = ({ product, setSelectedProduct }) => {
       <span>{'★'.repeat(product.rating)}</span>
     )
 
-  let history = useHistory();
-  const  handleClick = ()=>  {
-    history.push(`/products:id=${product.id}`);
-    setSelectedProduct(product)
-  }
 
   return (
-        <div
+        <NavLink
+        to={`/products/${product.id}`}
           style={{
             width: "300px",
             display: "flex",
@@ -34,7 +29,6 @@ const ProductCard = ({ product, setSelectedProduct }) => {
             color: "white",
             margin: "1em 0",
           }}
-          onClick={handleClick}
         >
           <img
             style={{ maxWidth: "22em" }}
@@ -61,7 +55,7 @@ const ProductCard = ({ product, setSelectedProduct }) => {
             </span>
             <h2>$ {product.price}</h2>
           </div>
-        </div>
+        </NavLink>
       
   );
 };
