@@ -58,8 +58,9 @@ const handleSearch = (e) => {
 setfilterBySearch(e.target.value)
 }
     return (
-<div style={{marginLeft: '10%'}}>
-    <nav style={{display: 'flex', justifyContent: 'center', marginTop: '5rem'}}>
+<div style={{marginLeft: '10%', position: 'relative'}}>
+        <img src="./banana-logo.svg" alt="" style={{width: '150px', position: 'absolute', top:"-55%", left: '45%'}}/>
+    <nav style={{display: 'flex', justifyContent: 'center', marginTop: '10rem', textAlign: 'left'}}>
         <select name="catagory-filter" id="" onChange={handleChange} style={{height: '34px', width: '100px', border:'1px solid rgba(0,0,0, 0.1)',borderRight: 'none', borderTopLeftRadius: '5px',borderBottomLeftRadius: '5px'}}>
         <option value="" disabled >--Choose an option---</option>
         {categories.map(category => {return <option name={category.name} key={category.id} value={category.id}>{category.name}</option>})}

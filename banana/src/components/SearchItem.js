@@ -16,14 +16,14 @@ const SearchItem = ({product, setSelectedProduct}) => {
 //     history.push(`/id=${product.id}`);
 //     setSelectedProduct(product)
     return (
-        <NavLink  to={`/products/${product.id}`} style={{color: 'black', border: '1px solid rgba(0,0,0,0.1)',borderRadius:'5px', display: 'flex', width: '70%', height: '200px'}}>
+        <NavLink  to={`/products/${product.id}`} style={{position: 'relative',color: 'black',textDecoration: 'none', border: '1px solid rgba(0,0,0,0.1)',borderRadius:'5px', display: 'flex', width: '70%', height: '200px', padding:'10px'}}>
             <img style={{width: '250px'}} src={images[0]?.url} alt="" />
             <div style={{marginLeft: '20px'}}>
                 <h3  style={{fontSize: '2rem'}}>{product.name}</h3>
-                <p style={{margin: '0'}}>{product.rating}</p>
-                <span style={{display: 'flex', alignItems: 'center', margin: '0'}}>
-                <p>$</p>
-                <p style={{fontSize: '2rem'}}>{product.price}</p>
+                <p style={{margin: '0'}}>{'★'.repeat(product.rating)}</p>
+                <span style={{display: 'flex', alignItems: 'center', margin: '0',  position: 'absolute', right: '2%', bottom: '-35%'}}>
+                <p style={{fontSize: '2.5rem'}}>$</p>
+                <p style={{fontSize: '5rem'}}>{product.price}</p>
                 </span>
             </div>
         </NavLink>

@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useMemo } from "react";
-import { BrowserRouter as Router, Route, NavLink, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, NavLink, Switch } from "react-router-dom";
 import AuthForm from "../components/AuthForm";
 import Home from '../pages/Home'
 import Sidebar from '../components/Sidebar'
