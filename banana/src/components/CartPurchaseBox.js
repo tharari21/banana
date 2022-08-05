@@ -53,7 +53,7 @@ const CartPurchaseBox = () => {
             <img style={{width: '50px'}} src="https://yt3.ggpht.com/ytc/AMLnZu9ePRJLEuHmEfAmCU3_biGuALlS-9gA9dpJsh2izg=s900-c-k-c0x00ffffff-no-rj" alt="" />
             <img style={{width: '50px'}} src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/1200px-American_Express_logo_%282018%29.svg.png" alt="" />
         </div>
-        <span style={{display: 'flex', alignItems: 'center'}}><p style={{fontSize: '1.4rem', marginRight:'auto'}}>Item(s) Total:</p><p style={{fontSize: '1.4rem'}}>{'total'}</p></span>
+        <span style={{display: 'flex', alignItems: 'center'}}><p style={{fontSize: '1.4rem', marginRight:'auto'}}></p><p style={{fontSize: '1.4rem'}}>{}</p></span>
         <button onClick={onCheckout} style={{height: '35px', borderRadius: '5px', border: 'none', backgroundColor:'#00a8ff', color: 'white', fontWeight: 'bold'}} type="submit">
           Proceed to checkout
         </button>

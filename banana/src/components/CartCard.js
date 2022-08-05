@@ -1,6 +1,6 @@
 import {useState, useEffect, useContext} from 'react'
 import { UserContext } from '../pages/App'
-const CartCard = ({cartItem, removeItemFromCart}) => {
+const CartCard = ({cartItem, removeItemFromCart, setCartTotal}) => {
     const {user} = useContext(UserContext)
     const [images, setImages] = useState(null)
     const [quantity, setQuantity] = useState(cartItem.quantity)
@@ -11,6 +11,7 @@ const CartCard = ({cartItem, removeItemFromCart}) => {
             setImages(res)
         }
         getImages();
+        setCartTotal(prev => prev+ (parseInt(cartItem.product.price,10) * quantity))
     }, [])
 
     
@@ -19,7 +20,7 @@ const CartCard = ({cartItem, removeItemFromCart}) => {
         // Check if input is a number
         const newQuantity = e.target.value.replace(/\D/g, '');
         console.log(newQuantity)
-        setQuantity(e.target.value)
+        // setQuantity(e.target.value)
         if (newQuantity) {
 
             try {
@@ -30,10 +31,13 @@ const CartCard = ({cartItem, removeItemFromCart}) => {
                         Accept: 'application/json'
                     },
                     body: JSON.stringify({quantity: newQuantity})
+
                 })
                 const res = await req.json()
                 console.log(res)
                 setQuantity(newQuantity)
+                setCartTotal(prev => prev + parseInt(cartItem.product.price,10))
+
             } catch (err) {
                 console.log(err)
             }
@@ -53,8 +57,8 @@ return (
         </div>
         <div style={cartItemContentContainerStyle}>
             <h1 style={{padding: '0 2em'}}>{cartItem.product.name}</h1>
-            <h3>{cartItem.product.description}</h3>
-            <label style={{ position: 'absolute', bottom: '15%', right: '15%' }}>
+            <p style={{fontSize: '1.2rem', maxWidth: '800px', maxHeight: '70px', overflowY: 'scroll'}}>{cartItem.product.description}</p>
+            <label style={{ position: 'absolute', bottom: '15%', left: '10%' }}>
                 <span style={{fontSize: '1.5em'}}>Quantity</span>
                 <input name="quantity" type="number" value={quantity} onChange={onQuantityChange} style={{  marginLeft: '1em', width: '25px', height: '20px', padding: '.3em 1em', fontSize: '.9em'}}/>
 

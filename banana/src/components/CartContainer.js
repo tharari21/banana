@@ -2,7 +2,7 @@ import {useEffect, useState, useContext} from 'react'
 import {UserContext} from '../pages/App'
 import CartCard from "../components/CartCard"
 
-const CartContainer = ({setNumItemsInCart}) => {
+const CartContainer = ({setNumItemsInCart, setCartTotal}) => {
     const {user, setUser} = useContext(UserContext)
     const [cart, setCart] = useState(null)
     useEffect(() => {
@@ -29,7 +29,7 @@ const CartContainer = ({setNumItemsInCart}) => {
     }
   return (
     <div style={{width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '10%'}}>
-        {cart && cart.map(cartItem=><CartCard key={cartItem.id} cartItem={cartItem} removeItemFromCart={removeItemFromCart}/>)}
+        {cart && cart.map(cartItem=><CartCard setCartTotal={setCartTotal} key={cartItem.id} cartItem={cartItem} removeItemFromCart={removeItemFromCart}/>)}
     </div>
   )
 }
