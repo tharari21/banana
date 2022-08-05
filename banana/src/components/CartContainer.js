@@ -14,9 +14,22 @@ const CartContainer = ({setNumItemsInCart}) => {
         }
         getCart()
     }, [])
+    const removeItemFromCart = async (id) => {
+        const req = await fetch(`http://10.129.2.168:5000/cart/${id}`, {
+            method: 'DELETE'
+        })
+        const res = await req.json();
+        if (res.deleted) {
+            setCart((cart) => {
+                setNumItemsInCart(cart.length-1)
+                return cart.filter(cartItem => cartItem.id !== id)
+            })
+        }
+
+    }
   return (
     <div style={{width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '10%'}}>
-        {cart && cart.map(cartItem=><CartCard key={cartItem.id} product={cartItem.product}/>)}
+        {cart && cart.map(cartItem=><CartCard key={cartItem.id} cartItem={cartItem} removeItemFromCart={removeItemFromCart}/>)}
     </div>
   )
 }

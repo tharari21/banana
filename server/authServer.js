@@ -17,11 +17,13 @@ app.get("/logout", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
+  
   const { email, password } = req.body;
   const potentialLogin = await pool.query(
     "SELECT id, email, hashedpassword FROM users WHERE email = $1",
     [email]
   );
+  console.log(email)
   if (potentialLogin.rowCount === 1) {
     const isSamePass = await bcrypt.compare(
       password,
@@ -37,14 +39,15 @@ app.post("/login", async (req, res) => {
 
       res.json({ user, accessToken });
     } else {
-      res.json({ message: "not logged in" });
+      res.json({ message: "Incorrect username/password" });
     }
   } else {
-    res.json({ messgae: "invalid email" });
+    res.json({ messgae: "Incorrect username/password" });
   }
 });
 app.post("/signup", async (req, res) => {
   const { email, password, isSeller } = req.body;
+  
   const existingUser = await pool.query(
     "SELECT email FROM users WHERE email =$1",
     [email]

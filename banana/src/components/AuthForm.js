@@ -8,13 +8,17 @@ const initialData = {
 const AuthForm = ({type}) => {
   const {user,setUser} = useContext(UserContext)
   const [formData, setFormData] = useState(initialData)
-  const [formErrors, setFormErrors] = useState(null)
+  const [errorMessage, setErrorMessage] = useState('') 
+
   const handleInput = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
+  errorMessage && setTimeout(() => {
+  setErrorMessage('')
+}, 3000)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -27,9 +31,13 @@ const AuthForm = ({type}) => {
           body: JSON.stringify({...formData, isSeller: false})
         })
         const res = await req.json()
-        
-        localStorage.setItem('session', JSON.stringify(res))
-        setUser(res)
+        if (res.user) {
+          localStorage.setItem('session', JSON.stringify(res))
+          setUser(res)
+
+        } else {
+          setErrorMessage(res.message)
+        }
     } else {
         const req = await fetch('http://localhost:4000/login', {
           method: 'POST',
@@ -44,7 +52,8 @@ const AuthForm = ({type}) => {
             setUser(res)
 
         } else {
-            setFormErrors(res)
+            setErrorMessage(res.message)
+
         }
     }
     setFormData(initialData);
@@ -54,6 +63,7 @@ const AuthForm = ({type}) => {
     return (
       <div style={{ position: "fixed", top: "25%", left: "45%" }}>
         {user && <Redirect to="/"/>}
+        {errorMessage && <div style={{position: 'fixed', top: '2em', left: '57%', transform: 'translate(-50%)', backgroundColor: "rgb(252, 225, 128)", color: 'black', padding: '1em 2em'}} ><h2>{errorMessage}</h2></div>}
         <div
           style={{
             border: "1px solid rgba(0, 0, 0, 0.263)",
@@ -91,6 +101,7 @@ const AuthForm = ({type}) => {
                   border: "1px solid rgba(0, 0, 0, 0.263)",
                 }}
                 onChange={handleInput}
+                value={formData.email}
               />
               <input
                 type="password"
@@ -103,8 +114,9 @@ const AuthForm = ({type}) => {
                   border: "1px solid rgba(0, 0, 0, 0.263)",
                 }}
                 onChange={handleInput}
+                value={formData.password}
               />
-              {formErrors && <p>{formErrors.message}</p>}
+              
               <input
                 style={{
                   height: "35px",

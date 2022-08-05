@@ -11,6 +11,7 @@ router.get("/", async (req, res) => {
 });
 router.post("/", async (req, res) => {
   // Create image for product req.params.id
+  console.log(req.body)
   const urls = req.body.map(url => [parseInt(req.params.productId) , url])
   try{
     console.log('q')

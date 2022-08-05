@@ -4,36 +4,43 @@ import {useParams} from 'react-router-dom'
 const SelectedProductPage = () => {
   const params = useParams();
 
-  console.log(params.id)
-  const {user, setUser } =useContext(UserContext)
-let location = window.location.pathname
-// const regex = /=(.*)/g;
-// const found = location.match(regex);
-// let test = found[0].split('')
-// let pathId =test[1]+ test[2]
+  const {user} = useContext(UserContext)
+
 const [product, setProduct]= useState({})
+const [images, setImages]= useState([])
+const [addedToCartMessage, setAddedToCartMessage] = useState('') 
+
+addedToCartMessage && setTimeout(() => {
+  setAddedToCartMessage('')
+}, 3000)
+
 useEffect(()=> {
   const getProduct = async() => {
       let req = await fetch(`http://10.129.2.168:5000/products/${params.id}`)
       let res = await req.json()
-      console.log('selected product 2', res)
       setProduct(res)
   }
+  const getImages = async() => {
+      let req = await fetch(`http://10.129.2.168:5000/products/${params.id}/images`)
+      let res = await req.json()
+      setImages(res)
+  }
+  
 
-  getProduct()
+  getProduct();
+  getImages();
 },[])
 
 const handleAddToCart = async() => {
-console.log(user.user.id)
   let req = await fetch(`http://10.129.2.168:5000/cart?userId=${user.user.id}`, {
     method: 'POST',
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({productId: product.id})
-  }) 
+  })
   let res = await req.json()
-  console.log(res)
+  setAddedToCartMessage(`${product.name} ADDED TO CART`);
 }
 return (
    <div
@@ -45,6 +52,8 @@ return (
        color: "black",
      }}
    >
+    {addedToCartMessage && <div style={{backgroundColor: 'rgb(252, 225, 128)', marginTop: '2em', padding: '1em 2em', borderRadius: '10px'}}><h2>{addedToCartMessage}</h2></div>}
+
      <h2 style={{ fontSize: "3rem" }}>{product.name}</h2>
      <span>{product.rating}</span>
      <div
@@ -57,7 +66,7 @@ return (
        }}
      >
        <img
-         src="https://a0.muscache.com/im/pictures/prohost-api/Hosting-46358245/original/e02fa4d8-2cb2-4e87-a523-091e5bd78bf6.jpeg?im_w=1200"
+         src={images[0]?.url}
          alt=""
          style={{ width: "500px", height: "500px", margin: "0" }}
        />
@@ -78,22 +87,22 @@ return (
              margin: "0",
              padding: "0",
            }}
-           src="https://a0.muscache.com/im/pictures/prohost-api/Hosting-46358245/original/072dad35-7456-4bec-8e67-7f7519add770.jpeg?im_w=720"
+           src={images[1]?.url}
            alt=""
          />
          <img
            style={{ width: "250px", height: "250px" }}
-           src="https://a0.muscache.com/im/pictures/prohost-api/Hosting-46358245/original/cc1d13e7-be7c-45b3-b56b-fd73cb1995a9.jpeg?im_w=720"
+           src={images[2]?.url}
            alt=""
          />
          <img
            style={{ width: "250px", height: "250px" }}
-           src="https://a0.muscache.com/im/pictures/prohost-api/Hosting-46358245/original/aca78a06-b981-4c31-878b-b3b8fce73f24.jpeg?im_w=720"
+           src={images[3]?.url}
            alt=""
          />
          <img
            style={{ width: "250px", height: "250px" }}
-           src="https://a0.muscache.com/im/pictures/prohost-api/Hosting-46358245/original/0fd8e4ce-f146-49ea-9cb8-c48cf3bbbdaf.jpeg?im_w=720"
+           src={images[4]?.url}
            alt=""
          />
          {/* <button>Show All Photos</button> */}

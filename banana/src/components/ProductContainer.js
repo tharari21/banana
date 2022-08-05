@@ -37,7 +37,7 @@ const ProductContainer = ({ setSelectedProduct }) => {
         }}
       >
         {products && (
-            <div style={{ marginLeft: "20%", display: 'flex', flexWrap: 'wrap', gap: '2em'}}>
+            <div style={{  display: 'flex', flexWrap: 'wrap', gap: '2em'}}>
                 {products.map((product) => <ProductCard 
                     key={product.id} 
                     product={product} 

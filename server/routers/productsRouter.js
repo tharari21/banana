@@ -3,6 +3,7 @@ const pool = require('../db');
 const router = express.Router();
 const imageRouter = require('./imageRouter');
 const jwt = require('jsonwebtoken')
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const authenticateToken = (req, res, next) => {
 
   
@@ -41,10 +42,19 @@ router.get('/',  async (req, res) => {
 router.post('/', async (req, res) => {
     // Create new product
     const {name, description, sellerId, categoryId, rating, price} = req.body;
+    
     try {
+        const stripeProduct = await stripe.products.create({
+          name: name,
+        })
+        const stripePrice = await stripe.prices.create({
+          currency: 'usd',
+          unit_amount: price*100,
+          product: stripeProduct.id
+        })
         const newProductQuery = await pool.query(
-          "INSERT INTO products (name, description, seller_id, catagory_id, rating, price) VALUES($1, $2, (SELECT id FROM users WHERE id=$3), (SELECT id FROM catagories WHERE id=$4), $5,$6) RETURNING id, name, description, seller_id, catagory_id, rating, price",
-          [name, description, sellerId, categoryId, rating, price]
+          "INSERT INTO products (name, description, seller_id, catagory_id, rating, price, stripe_id) VALUES($1, $2, (SELECT id FROM users WHERE id=$3), (SELECT id FROM catagories WHERE id=$4), $5,$6, $7) RETURNING id, name, description, seller_id, catagory_id, rating, price, stripe_id",
+          [name, description, sellerId, categoryId, rating, parseInt(price, 10), stripePrice.id]
         );
         if (newProductQuery.rowCount ===1){
             res.json({ product: newProductQuery.rows[0] })
