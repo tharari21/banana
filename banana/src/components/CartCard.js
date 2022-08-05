@@ -54,7 +54,7 @@ return (
         <div style={cartItemContentContainerStyle}>
             <h1 style={{padding: '0 2em'}}>{cartItem.product.name}</h1>
             <h3>{cartItem.product.description}</h3>
-            <label style={{ float: 'right' }}>
+            <label style={{ position: 'absolute', bottom: '15%', right: '15%' }}>
                 <span style={{fontSize: '1.5em'}}>Quantity</span>
                 <input name="quantity" type="number" value={quantity} onChange={onQuantityChange} style={{  marginLeft: '1em', width: '25px', height: '20px', padding: '.3em 1em', fontSize: '.9em'}}/>
 
