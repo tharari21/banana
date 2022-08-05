@@ -132,7 +132,7 @@ return (
           
          }}
        >
-           <h2 style={{ fontSize: '3rem'}}>${29.99}</h2>
+           <h2 style={{ fontSize: '3rem'}}>${product.price}</h2>
            <button onClick={handleAddToCart} style={{height: '30px', width: '150px', backgroundColor: 'rgb(252, 225, 128)', borderRadius: '5px', border: 'none', cursor: 'pointer'}}>Add to cart</button>
        </div>
      </div>
