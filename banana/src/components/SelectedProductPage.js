@@ -55,7 +55,7 @@ return (
     {addedToCartMessage && <div style={{backgroundColor: 'rgb(252, 225, 128)', marginTop: '2em', padding: '1em 2em', borderRadius: '10px'}}><h2>{addedToCartMessage}</h2></div>}
 
      <h2 style={{ fontSize: "3rem" }}>{product.name}</h2>
-     <span>{product.rating}</span>
+     <span>{'★'.repeat(product.rating)}</span>
      <div
        id="SelectedProductImageContainer"
        style={{
@@ -74,10 +74,11 @@ return (
          id="SelectedProductImageContainerRight"
          style={{
            maxWidth: "500px",
-           border: "1px solid black",
            margin: "0",
            gap: "0",
            padding: "0",
+           display: 'flex',
+           flexWrap: 'wrap'
          }}
        >
          <img
@@ -91,21 +92,20 @@ return (
            alt=""
          />
          <img
-           style={{ width: "250px", height: "250px" }}
+           style={{ width: "250px", height: "250px", margin: '0'}}
            src={images[2]?.url}
            alt=""
          />
          <img
-           style={{ width: "250px", height: "250px" }}
+           style={{ width: "250px", height: "250px" ,margin: '0'}}
            src={images[3]?.url}
            alt=""
          />
          <img
-           style={{ width: "250px", height: "250px" }}
+           style={{ width: "250px", height: "250px", marginTop: '0' }}
            src={images[4]?.url}
            alt=""
          />
-         {/* <button>Show All Photos</button> */}
        </div>
      </div>
      <div
@@ -122,22 +122,22 @@ return (
          style={{
            marginRight: "5%",
            border: "1px solid rgba(0,0,0,0.5)",
-           height: "300px",
+           height: "250px",
            width: "250px",
+           display: 'flex',
+           borderRadius: '5px',
+           flexDirection: 'column',
+           alignItems: 'center',
+          justifyContent: 'center'
+          
          }}
        >
-         <div style={{ display: "flex", alignItems: "center" }}>
-           <h2 style={{ marginRight: "auto", marginLeft: "5%" }}>${product.price}</h2>
-           <p style={{ marginRight: "5%" }}>{product.rating}</p>
-         </div>
-         <div style={{display:'flex', flexDirection: 'column'}}>
-           <button onClick={handleAddToCart} >Add to cart</button>
-           <button  >Buy now</button>
-         </div>
+           <h2 style={{ fontSize: '3rem'}}>${29.99}</h2>
+           <button onClick={handleAddToCart} style={{height: '30px', width: '150px', backgroundColor: 'rgb(252, 225, 128)', borderRadius: '5px', border: 'none', cursor: 'pointer'}}>Add to cart</button>
        </div>
      </div>
      <hr />
-     <div id="related-products">Auto generated products</div>
+     {/* <div id="related-products">Auto generated products</div> */}
    </div>
  );   
 }

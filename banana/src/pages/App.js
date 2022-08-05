@@ -7,6 +7,8 @@ import ProductContainer from '../components/ProductContainer'
 import Cart from "./Cart";
 import SelectedProductPage from "../components/SelectedProductPage";
 import SearchPage from "./SearchPage";
+import About from "./About";
+import BecomeSeller from "./BecomeSeller";
 
 export const UserContext = createContext();
 
@@ -33,7 +35,7 @@ function App() {
   console.log('selected product',selectedProduct)
   return (
     <Router>
-      <div className="App">
+      <div className="App" style={{overflowX: 'hidden'}}>
         <UserContext.Provider value={value}>
           <Sidebar />
         
@@ -53,6 +55,12 @@ function App() {
           </Route>
           <Route exact key={1} path={`/products/:id`}>
             <SelectedProductPage selectedProduct={selectedProduct}/>
+          </Route>
+          <Route exact key={6} path={`/about`}>
+            <About/>
+          </Route>
+          <Route exact key={7} path={`/become-a-seller`}>
+            <BecomeSeller/>
           </Route>
           <Route path="/" >
             <Home />

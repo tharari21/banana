@@ -1,5 +1,6 @@
 import {useState, useEffect, useContext} from 'react'
 import { UserContext } from './App';
+import { NavLink } from 'react-router-dom';
 const Home = () => {
   const {user} = useContext(UserContext)
     useEffect(() => {
@@ -48,29 +49,46 @@ const Home = () => {
             Join our community of buyers and sellers that go bananas for good deals.  At Banana we believe in treating our team members as well as our customers.
           </p>
           <span>
-            <button
-              style={{
+           <button style={{
                 backgroundColor: "rgb(252, 225, 150)",
                 width: '200px',
                 height: '50px',
                 borderRadius: "14px",
                 fontSize: '1.5em',
-                margin: '0 .5em'
+                margin: '0 .5em',
+                border: 'none',
+                cursor: 'pointer',
+                textDecoration: 'none',
+                color: 'black'
+              }}>
+            <NavLink to="/become-a-seller"
+              style={{
+                textDecoration: 'none',
+                color: 'black'
               }}
-            >
-              Become a seller
+            >Become a seller
+            </NavLink>
             </button>
-            <button
-              style={{
+            <button style={{
                 backgroundColor: "rgb(252, 225, 150)",
                 width: '200px',
                 height: '50px',
                 borderRadius: "14px",
                 fontSize: '1.5em',
-                margin: '0 .5em'
+                margin: '0 .5em',
+                border: 'none',
+                cursor: 'pointer',
+                textDecoration: 'none',
+                color: 'black'
+              }}>
+            <NavLink to="/about"
+              style={{
+                textDecoration: 'none',
+                color: 'black'
               }}
             >
               Our mission
+            </NavLink>
             </button>
           </span>
         </div>
