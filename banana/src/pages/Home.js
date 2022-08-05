@@ -1,4 +1,28 @@
+import {useState, useEffect, useContext} from 'react'
+import { UserContext } from './App';
 const Home = () => {
+  const {user} = useContext(UserContext)
+    useEffect(() => {
+        // Check to see if this is a redirect back from Checkout
+        const query = new URLSearchParams(window.location.search);
+        if (query.get("success")) {
+            fetch(`http://10.129.2.168:5000/checkout/delete-user-cart?userId=${user.user.id}`, {
+              method: 'DELETE'
+            }).then(r => r.json())
+            .then(data => {
+              if (data.deleted) {
+                alert("Order placed! You will receive an email confirmation.")
+              } else {
+                alert('Order placed however could not clear cart for some reason.')
+              }
+            })
+        }
+            
+        if (query.get("canceled")) {
+          alert( "Order canceled -- continue to shop around and checkout when you're ready.")
+          
+        }
+          }, []);
     return (
       <div
         id="home"

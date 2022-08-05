@@ -7,24 +7,7 @@ import { UserContext } from "./App"
 const Cart = () => {
     const {user, setUser} = useContext(UserContext)
     const [numItemsInCart, setNumItemsInCart] = useState(0)
-    const [message, setMessage] = useState("");
-
-    useEffect(() => {
-        // Check to see if this is a redirect back from Checkout
-        const query = new URLSearchParams(window.location.search);
-        console.log(query.get('success'))
-        if (query.get("success")) {
-            alert("Order placed! You will receive an email confirmation.")
-        setMessage("Order placed! You will receive an email confirmation.");
-        }
-
-        if (query.get("canceled")) {
-            alert( "Order canceled -- continue to shop around and checkout when you're ready.")
-        setMessage(
-            "Order canceled -- continue to shop around and checkout when you're ready."
-        );
-        }
-    }, []);
+    
 
     return (
         <div style={{marginLeft: '20%', width: '60%', color: 'black'}}>
@@ -34,7 +17,7 @@ const Cart = () => {
             </div>             
             <CartContainer setNumItemsInCart={setNumItemsInCart} />
             <CartPurchaseBox />
-            {message && <p>{message}</p>}
+            
         </div>
     )
 }

@@ -4,10 +4,16 @@ import {useParams} from 'react-router-dom'
 const SelectedProductPage = () => {
   const params = useParams();
 
-  const {user, setUser } =useContext(UserContext)
+  const {user} = useContext(UserContext)
 
 const [product, setProduct]= useState({})
 const [images, setImages]= useState([])
+const [addedToCartMessage, setAddedToCartMessage] = useState('') 
+
+addedToCartMessage && setTimeout(() => {
+  setAddedToCartMessage('')
+}, 3000)
+
 useEffect(()=> {
   const getProduct = async() => {
       let req = await fetch(`http://10.129.2.168:5000/products/${params.id}`)
@@ -26,16 +32,15 @@ useEffect(()=> {
 },[])
 
 const handleAddToCart = async() => {
-console.log(user.user.id)
   let req = await fetch(`http://10.129.2.168:5000/cart?userId=${user.user.id}`, {
     method: 'POST',
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({productId: product.id})
-  }) 
+  })
   let res = await req.json()
-  console.log('add cart item response', res)
+  setAddedToCartMessage(`${product.name} ADDED TO CART`);
 }
 return (
    <div
@@ -47,6 +52,8 @@ return (
        color: "black",
      }}
    >
+    {addedToCartMessage && <div style={{backgroundColor: 'rgb(252, 225, 128)', marginTop: '2em', padding: '1em 2em', borderRadius: '10px'}}><h2>{addedToCartMessage}</h2></div>}
+
      <h2 style={{ fontSize: "3rem" }}>{product.name}</h2>
      <span>{product.rating}</span>
      <div

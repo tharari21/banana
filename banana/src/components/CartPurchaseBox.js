@@ -28,18 +28,17 @@ const CartPurchaseBox = () => {
         return {price: cartItem.product.stripe_id, quantity: cartItem.quantity}
       })
 
-      const req = await fetch('http://10.129.2.168:5000/checkout/create-checkout-session', {
+      const stripeCheckoutReq = await fetch('http://10.129.2.168:5000/checkout/create-checkout-session', {
         method: 'POST',
         headers: {
           "Content-Type": 'application/json',
         },
         body: JSON.stringify({lineItems: lineItems})
       })
-      const res = await req.json();
-      if (res.redirect_url) {
-        window.location.href = res.redirect_url
+      const stripeCheckoutRes = await stripeCheckoutReq.json();
+      if (stripeCheckoutRes.redirect_url) {
+        window.location.href = stripeCheckoutRes.redirect_url
       }
-      console.log(res)
 
     }
 
