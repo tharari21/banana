@@ -45,7 +45,7 @@ const handleAddToCart = async() => {
 return (
    <div
      style={{
-       marginLeft: "20%",
+       marginLeft: "10%",
        display: "flex",
        flexDirection: "column",
        alignItems: "center",
